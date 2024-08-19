@@ -20,6 +20,10 @@ defmodule Aistorybook.Application do
       AistorybookWeb.Endpoint
     ]
 
+    IO.inspect("Starting", label: "Startup")
+    # Insert some test data
+    Project.Data.run()
+
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Aistorybook.Supervisor]

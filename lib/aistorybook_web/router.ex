@@ -20,6 +20,8 @@ defmodule AistorybookWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live "/board", BoardLive
   end
 
   scope "/admin" do

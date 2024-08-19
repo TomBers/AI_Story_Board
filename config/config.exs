@@ -49,7 +49,12 @@ config :aistorybook, AistorybookWeb.Endpoint,
   pubsub_server: Aistorybook.PubSub,
   live_view: [signing_salt: "iWC7GIIw"]
 
-config :aistorybook, :ash_domains, [Aistorybook.Project.Domain]
+config :aistorybook, :ash_domains, [
+  Aistorybook.Project.Domain,
+  Aistorybook.Chapter.Domain,
+  Aistorybook.Page.Domain,
+  Aistorybook.Image.Domain
+]
 
 config :ash, :include_embedded_source_by_default?, true
 # Configures the mailer

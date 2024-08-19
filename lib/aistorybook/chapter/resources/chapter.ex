@@ -1,15 +1,15 @@
-defmodule Aistorybook.Project.Resources.Project do
-  use Ash.Resource, data_layer: Ash.DataLayer.Ets, domain: Aistorybook.Project.Domain
+defmodule Aistorybook.Chapter.Resources.Chapter do
+  use Ash.Resource, data_layer: Ash.DataLayer.Ets, domain: Aistorybook.Chapter.Domain
 
   actions do
     defaults [:read]
 
     create :create do
-      accept [:name, :style]
+      accept [:name, :style, :project_id]
     end
 
     update :update do
-      accept [:name, :style]
+      accept [:name, :style, :project_id]
     end
   end
 
@@ -22,7 +22,7 @@ defmodule Aistorybook.Project.Resources.Project do
     end
 
     attribute :style, :string do
-      allow_nil? false
+      allow_nil? true
       public? true
     end
 
@@ -31,6 +31,7 @@ defmodule Aistorybook.Project.Resources.Project do
   end
 
   relationships do
-    has_many :chapters, Aistorybook.Chapter.Resources.Chapter
+    belongs_to :project, Aistorybook.Project.Resources.Project
+    has_many :pages, Aistorybook.Page.Resources.Page
   end
 end
