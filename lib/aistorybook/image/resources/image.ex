@@ -5,11 +5,11 @@ defmodule Aistorybook.Image.Resources.Image do
     defaults [:read]
 
     create :create do
-      accept [:url, :meta, :page_id]
+      accept [:url, :meta, :panel_id]
     end
 
     update :update do
-      accept [:url, :meta, :page_id]
+      accept [:url, :meta, :panel_id]
     end
   end
 
@@ -31,6 +31,6 @@ defmodule Aistorybook.Image.Resources.Image do
   end
 
   relationships do
-    belongs_to :page, Aistorybook.Page.Resources.Page
+    belongs_to :panel, Aistorybook.Page.Resources.Panel
   end
 end

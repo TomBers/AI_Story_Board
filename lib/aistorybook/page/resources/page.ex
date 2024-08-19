@@ -5,26 +5,16 @@ defmodule Aistorybook.Page.Resources.Page do
     defaults [:read]
 
     create :create do
-      accept [:text, :image_prompt, :chapter_id]
+      accept [:chapter_id]
     end
 
     update :update do
-      accept [:text, :image_prompt, :chapter_id]
+      accept [:chapter_id]
     end
   end
 
   attributes do
     uuid_primary_key :id
-
-    attribute :text, :string do
-      allow_nil? false
-      public? true
-    end
-
-    attribute :image_prompt, :string do
-      allow_nil? true
-      public? true
-    end
 
     create_timestamp :created_at
     update_timestamp :updated_at
@@ -32,6 +22,6 @@ defmodule Aistorybook.Page.Resources.Page do
 
   relationships do
     belongs_to :chapter, Aistorybook.Chapter.Resources.Chapter
-    has_many :images, Aistorybook.Image.Resources.Image
+    has_many :panels, Aistorybook.Page.Resources.Panel
   end
 end

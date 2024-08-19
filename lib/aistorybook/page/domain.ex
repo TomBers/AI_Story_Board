@@ -7,5 +7,6 @@ defmodule Aistorybook.Page.Domain do
 
   resources do
     resource Aistorybook.Page.Resources.Page
+    resource Aistorybook.Page.Resources.Panel
   end
 end

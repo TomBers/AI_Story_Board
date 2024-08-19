@@ -16,16 +16,23 @@ defmodule Project.Data do
     page =
       Aistorybook.Page.Resources.Page
       |> Ash.Changeset.for_create(:create, %{
+        chapter_id: chapter.id
+      })
+      |> Ash.create!()
+
+    panel =
+      Aistorybook.Page.Resources.Panel
+      |> Ash.Changeset.for_create(:create, %{
         text: "This is the first label",
         image_prompt: "Create an image of a cactus",
-        chapter_id: chapter.id
+        page_id: page.id
       })
       |> Ash.create!()
 
     Aistorybook.Image.Resources.Image
     |> Ash.Changeset.for_create(:create, %{
       url: "https://picsum.photos/seed/picsum/200/300",
-      page_id: page.id
+      panel_id: panel.id
     })
     |> Ash.create!()
 
