@@ -1,0 +1,33 @@
+<div>
+  <h2 class="font-semibold mb-2">
+    <a href={"/board?chapter=#{@chapter.name}"}><%= @chapter.name %></a>
+
+    <button
+      phx-click={JS.toggle(to: "#" <> @form_div_id)}
+      id={"chapter_edit_button_#{@chapter.id}"}
+    >
+      Edit
+    </button>
+  </h2>
+  <div id={@form_div_id} class="hidden">
+    <.simple_form
+      for={@form}
+      phx-submit="rename_chapter"
+      id={"rename_chapter_#{@chapter.id}"}
+      phx-target={@myself}
+    >
+      <.input
+        type="text"
+        label="New Chapter Name"
+        field={@form[:name]}
+        id={"chapter_name_#{@chapter.id}"}
+      />
+      <.button
+        phx-click={JS.toggle(to: "#" <> @form_div_id)}
+        id={"chapter_form_button_#{@chapter.id}"}
+      >
+        Save
+      </.button>
+    </.simple_form>
+  </div>
+</div>

@@ -11,8 +11,13 @@ defmodule AistorybookWeb.BoardLive do
 
     new_chapter_form =
       Aistorybook.Chapter.Resources.Chapter
-      |> AshPhoenix.Form.for_create(:create, forms: [auto?: true])
+      |> AshPhoenix.Form.for_create(:create,
+        id: Enum.random(1..10000) |> Integer.to_string(),
+        forms: [auto?: true]
+      )
       |> to_form()
+
+    IO.inspect(new_chapter_form, label: "form")
 
     {:ok,
      assign(socket,
@@ -34,20 +39,24 @@ defmodule AistorybookWeb.BoardLive do
   end
 
   def handle_event("create_new_chapter", %{"form" => params}, socket) do
-    AshPhoenix.Form.submit(socket.assigns.new_chapter_form,
-      params: Map.put(params, "project_id", socket.assigns.project.id)
-    )
+    {:ok, new_chapter} =
+      AshPhoenix.Form.submit(socket.assigns.new_chapter_form,
+        params: Map.put(params, "project_id", socket.assigns.project.id)
+      )
 
-    project = Access.get_project_by_name("Test1")
-
-    chapter = Access.find_chapter_by_name(project, socket.assigns.chapter_name)
+    updated_project = %{
+      socket.assigns.project
+      | chapters: [new_chapter] ++ socket.assigns.project.chapters
+    }
 
     new_chapter_form =
       Aistorybook.Chapter.Resources.Chapter
-      |> AshPhoenix.Form.for_create(:create, forms: [auto?: true])
+      |> AshPhoenix.Form.for_create(:create,
+        id: Enum.random(1..10000) |> Integer.to_string(),
+        forms: [auto?: true]
+      )
       |> to_form()
 
-    {:noreply,
-     assign(socket, project: project, chapter: chapter, new_chapter_form: new_chapter_form)}
+    {:noreply, assign(socket, project: updated_project, new_chapter_form: new_chapter_form)}
   end
 end
