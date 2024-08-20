@@ -22,10 +22,7 @@ defmodule AistorybookWeb.Comps.PageComp do
         params: Map.put(params, "page_id", socket.assigns.page.id)
       )
 
-    IO.inspect(new_panel, label: "new panel")
-
-    # TODO - this is not working (UndefinedFunctionError) function Aistorybook.Page.Resources.Page.get_and_update/3 is undefined (Aistorybook.Page.Resources.Page does not implement the Access behaviour
-    updated_page = update_in(socket.assigns.page, [:panels], &(&1 ++ [new_panel]))
+    updated_page = %{socket.assigns.page | panels: socket.assigns.page.panels ++ [new_panel]}
 
     {:noreply,
      assign(socket,
