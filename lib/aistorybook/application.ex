@@ -20,7 +20,6 @@ defmodule Aistorybook.Application do
       AistorybookWeb.Endpoint
     ]
 
-    IO.inspect("Starting", label: "Startup")
     # Insert some test data
     Project.Data.run()
 

@@ -1,0 +1,21 @@
+defmodule Aistorybook.Page.GenPanel do
+  def gen_image(panel) do
+    image = make_image(panel.id, img_gen_req(panel.image_prompt))
+    %{panel | images: panel.images ++ [image]}
+  end
+
+  defp img_gen_req(_prompt) do
+    # TODO - cyle through a few set images
+    {"https://picsum.photos/200/300", nil}
+  end
+
+  defp make_image(panel_id, {url, meta}) do
+    Aistorybook.Image.Resources.Image
+    |> Ash.Changeset.for_create(:create, %{
+      url: url,
+      panel_id: panel_id,
+      meta: meta
+    })
+    |> Ash.create!()
+  end
+end

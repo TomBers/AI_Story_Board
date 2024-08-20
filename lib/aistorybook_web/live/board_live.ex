@@ -17,8 +17,6 @@ defmodule AistorybookWeb.BoardLive do
       )
       |> to_form()
 
-    IO.inspect(new_chapter_form, label: "form")
-
     {:ok,
      assign(socket,
        project: project,

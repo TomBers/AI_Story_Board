@@ -2,6 +2,7 @@ defmodule AistorybookWeb.Comps.PanelComp do
   use Phoenix.LiveComponent
   import AistorybookWeb.CoreComponents
   alias Phoenix.LiveView.JS
+  alias Aistorybook.Page.GenPanel
 
   def update(assigns, socket) do
     form =
@@ -23,5 +24,16 @@ defmodule AistorybookWeb.Comps.PanelComp do
       |> to_form()
 
     {:noreply, assign(socket, panel: panel, form: form)}
+  end
+
+  def handle_event("generate", _params, socket) do
+    updated_panel = GenPanel.gen_image(socket.assigns.panel)
+    IO.inspect(updated_panel, label: "updated_panel")
+    {:noreply, assign(socket, panel: updated_panel)}
+  end
+
+  def get_panel_img(panel) do
+    List.last(panel.images, %{url: "https://picsum.photos/id/237/200/300"})
+    |> then(& &1.url)
   end
 end
