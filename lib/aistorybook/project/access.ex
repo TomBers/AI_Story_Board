@@ -7,4 +7,20 @@ defmodule Aistorybook.Project.Access do
     |> Ash.Query.filter(name == ^name)
     |> Ash.read_one!()
   end
+
+  def find_chapter_by_name(project, chapter_name) do
+    Enum.find(
+      project.chapters,
+      List.first(project.chapters),
+      &(&1.name == chapter_name)
+    )
+  end
+
+  def add_page_to_chapter(chapter) do
+    Aistorybook.Page.Resources.Page
+    |> Ash.Changeset.for_create(:create, %{
+      chapter_id: chapter.id
+    })
+    |> Ash.create!()
+  end
 end

@@ -6,14 +6,16 @@
     <div class="w-1/4 pr-4">
       <div class="border rounded p-2">
         <%= for chapter <- @project.chapters do %>
-          <h2 class="font-semibold mb-2"><%= chapter.name %></h2>
+          <h2 class="font-semibold mb-2">
+            <a href={"/board?chapter=#{chapter.name}"}><%= chapter.name %></a>
+          </h2>
         <% end %>
       </div>
     </div>
     <!-- Main content -->
     <div class="w-3/4 flex flex-wrap">
       <!-- Page 1 -->
-      <%= for {page, indx} <- List.first(@project.chapters) |> then(& Enum.with_index(&1.pages)) do %>
+      <%= for {page, indx} <- @chapter.pages |> Enum.sort(& DateTime.before?(&1.created_at, &2.created_at)) |> then(& Enum.with_index(&1)) do %>
         <div class="w-1/2 border rounded p-4 mb-4">
           <div class="flex justify-between mb-2">
             <h3 class="font-semibold">Page <%= indx + 1 %></h3>
@@ -25,7 +27,10 @@
       <% end %>
       <!-- Plus button -->
       <div class="w-full flex justify-center items-center mt-4">
-        <button class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center text-3xl font-bold hover:bg-gray-300 transition-colors">
+        <button
+          phx-click="add-page"
+          class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center text-3xl font-bold hover:bg-gray-300 transition-colors"
+        >
           +
         </button>
       </div>
