@@ -28,12 +28,14 @@ defmodule AistorybookWeb.Comps.PanelComp do
 
   def handle_event("generate", _params, socket) do
     updated_panel = GenPanel.gen_image(socket.assigns.panel)
-    IO.inspect(updated_panel, label: "updated_panel")
+
     {:noreply, assign(socket, panel: updated_panel)}
   end
 
   def get_panel_img(panel) do
-    List.last(panel.images, %{url: "https://picsum.photos/id/237/200/300"})
+    panel.images
+    |> Enum.sort(&DateTime.after?(&1.created_at, &2.created_at))
+    |> List.first()
     |> then(& &1.url)
   end
 end

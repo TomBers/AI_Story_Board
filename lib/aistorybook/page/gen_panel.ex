@@ -6,7 +6,8 @@ defmodule Aistorybook.Page.GenPanel do
 
   defp img_gen_req(_prompt) do
     # TODO - cyle through a few set images
-    {"https://picsum.photos/200/300", nil}
+    # https://picsum.photos/id/1/200/300
+    {"https://picsum.photos/id/#{Enum.random(1..60)}/200/300", nil}
   end
 
   defp make_image(panel_id, {url, meta}) do

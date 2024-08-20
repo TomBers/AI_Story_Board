@@ -22,11 +22,11 @@ defmodule AistorybookWeb.Comps.PageComp do
         params: Map.put(params, "page_id", socket.assigns.page.id)
       )
 
-    new_panel = Aistorybook.Page.Access.get_panel_by_id(new_panel.id)
+    created_panel = Aistorybook.Page.Access.get_panel_by_id(new_panel.id)
 
     updated_page = %{
       socket.assigns.page
-      | panels: socket.assigns.page.panels ++ [Aistorybook.Page.GenPanel.gen_image(new_panel)]
+      | panels: socket.assigns.page.panels ++ [Aistorybook.Page.GenPanel.gen_image(created_panel)]
     }
 
     {:noreply,
