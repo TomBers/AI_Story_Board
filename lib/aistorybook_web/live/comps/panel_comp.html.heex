@@ -3,4 +3,29 @@
     <h3 class="font-semibold"><%= @panel.text %></h3>
     <h3 class="font-semibold"><%= @panel.image_prompt %></h3>
   </div>
+  <button phx-click={JS.toggle(to: "#" <> @form_div_id)} id={"panel_edit_button_#{@panel.id}"}>
+    Edit
+  </button>
+  <div id={@form_div_id} class="hidden">
+    <.simple_form
+      for={@form}
+      phx-submit="change_panel"
+      id={"update_panel_#{@panel.id}"}
+      phx-target={@myself}
+    >
+      <.input type="text" label="Panel Text" field={@form[:text]} id={"panel_text_#{@panel.id}"} />
+      <.input
+        type="text"
+        label="Image Prompt"
+        field={@form[:image_prompt]}
+        id={"panel_prompt_#{@panel.id}"}
+      />
+      <.button
+        phx-click={JS.toggle(to: "#" <> @form_div_id)}
+        id={"chapter_form_button_#{@panel.id}"}
+      >
+        Save
+      </.button>
+    </.simple_form>
+  </div>
 </div>
