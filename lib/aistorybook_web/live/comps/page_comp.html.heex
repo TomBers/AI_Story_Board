@@ -1,0 +1,40 @@
+<div class="w-1/2 border rounded p-4 mb-4">
+  <div class="flex justify-between mb-2">
+    <h3 class="font-semibold">Page <%= @indx + 1 %></h3>
+  </div>
+  <%= for panel <- @page.panels do %>
+    <.live_component module={AistorybookWeb.Comps.PanelComp} id={panel.id} panel={panel} />
+  <% end %>
+
+  <button
+    phx-click={show_modal("new_panel_#{@page.id}")}
+    class="bg-white text-black font-bold py-2 px-4 rounded-xl inline-flex items-center border border-black hover:bg-electricblue hover:text-white"
+  >
+    <svg class="w-4 h-4 mr-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M24 13h-11v11h-2v-11h-11v-2h11v-11h2v11h11v2z" />
+    </svg>
+    Add Panel
+  </button>
+  <.modal id={"new_panel_#{@page.id}"}>
+    <.simple_form
+      for={@new_panel_form}
+      phx-submit="create_new_panel"
+      phx-target={@myself}
+      id={"create_panel_form_#{@page.id}"}
+    >
+      <.input
+        type="text"
+        label="Panel text"
+        field={@new_panel_form[:text]}
+        id={"create_panel_text_#{@page.id}"}
+      />
+      <.input
+        type="text"
+        label="Image Prompt"
+        field={@new_panel_form[:image_prompt]}
+        id={"create_panel_image_prompt_#{@page.id}"}
+      />
+      <.button phx-click={hide_modal("new_panel_#{@page.id}")}>Save</.button>
+    </.simple_form>
+  </.modal>
+</div>

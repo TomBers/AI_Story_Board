@@ -5,25 +5,47 @@
     <!-- Sidebar -->
     <div class="w-1/4 pr-4">
       <div class="border rounded p-2">
-        <%= for chapter <- @project.chapters do %>
+        <%= for chapter <- Enum.sort(@project.chapters, & DateTime.before?(&1.created_at, &2.created_at)) do %>
           <h2 class="font-semibold mb-2">
             <a href={"/board?chapter=#{chapter.name}"}><%= chapter.name %></a>
           </h2>
         <% end %>
+
+        <button
+          phx-click={show_modal("new_chapter")}
+          class="bg-white text-black font-bold py-2 px-4 rounded-xl inline-flex items-center border border-black hover:bg-electricblue hover:text-white"
+        >
+          <svg
+            class="w-4 h-4 mr-2 fill-current"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path d="M24 13h-11v11h-2v-11h-11v-2h11v-11h2v11h11v2z" />
+          </svg>
+          Add Chapter
+        </button>
+        <.modal id="new_chapter">
+          <.simple_form
+            for={@new_chapter_form}
+            phx-submit="create_new_chapter"
+            id="new_chapter_form"
+          >
+            <.input type="text" label="New Chapter Name" field={@new_chapter_form[:name]} />
+            <.button phx-click={hide_modal("new_chapter")}>Save</.button>
+          </.simple_form>
+        </.modal>
       </div>
     </div>
     <!-- Main content -->
     <div class="w-3/4 flex flex-wrap">
       <!-- Page 1 -->
       <%= for {page, indx} <- @chapter.pages |> Enum.sort(& DateTime.before?(&1.created_at, &2.created_at)) |> then(& Enum.with_index(&1)) do %>
-        <div class="w-1/2 border rounded p-4 mb-4">
-          <div class="flex justify-between mb-2">
-            <h3 class="font-semibold">Page <%= indx + 1 %></h3>
-          </div>
-          <%= for panel <- page.panels do %>
-            <.live_component module={AistorybookWeb.Comps.PanelComp} id={panel.id} panel={panel} />
-          <% end %>
-        </div>
+        <.live_component
+          module={AistorybookWeb.Comps.PageComp}
+          id={page.id}
+          page={page}
+          indx={indx}
+        />
       <% end %>
       <!-- Plus button -->
       <div class="w-full flex justify-center items-center mt-4">
