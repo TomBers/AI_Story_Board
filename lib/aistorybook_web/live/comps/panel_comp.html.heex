@@ -24,7 +24,12 @@
       </svg>
     </button>
     <!-- Canvas -->
-    <canvas id={"panel_canvas_#{@panel.id}"} height="400" width="600" />
+    <canvas
+      id={"panel_canvas_#{@panel.id}"}
+      height={@panel.height}
+      width={@panel.width}
+      class="mx-auto"
+    />
     <!-- Right Arrow -->
     <button
       class="absolute right-2 top-1/2 transform -translate-y-1/2 z-10"
@@ -87,6 +92,13 @@
         label="Image Prompt"
         field={@form[:image_prompt]}
         id={"panel_prompt_#{@panel.id}"}
+      />
+      <.input type="number" label="Width" field={@form[:width]} id={"panel_width_#{@panel.id}"} />
+      <.input
+        type="number"
+        label="Height"
+        field={@form[:height]}
+        id={"panel_height_#{@panel.id}"}
       />
       <.button
         phx-click={JS.toggle(to: "#" <> @form_div_id)}

@@ -5,11 +5,11 @@ defmodule Aistorybook.Page.Resources.Panel do
     defaults [:read]
 
     create :create do
-      accept [:text, :image_prompt, :page_id]
+      accept [:text, :image_prompt, :width, :height, :page_id]
     end
 
     update :update do
-      accept [:text, :image_prompt, :page_id]
+      accept [:text, :image_prompt, :width, :height, :page_id]
     end
 
     update :set_img_id do
@@ -27,6 +27,18 @@ defmodule Aistorybook.Page.Resources.Panel do
 
     attribute :image_prompt, :string do
       allow_nil? true
+      public? true
+    end
+
+    attribute :width, :integer do
+      allow_nil? false
+      default 200
+      public? true
+    end
+
+    attribute :height, :integer do
+      allow_nil? false
+      default 300
       public? true
     end
 

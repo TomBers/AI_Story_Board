@@ -25,6 +25,8 @@ defmodule Project.Data do
       |> Ash.Changeset.for_create(:create, %{
         text: "This is the first label",
         image_prompt: "Create an image of a cactus",
+        width: 500,
+        height: 300,
         page_id: page.id
       })
       |> Ash.create!()
