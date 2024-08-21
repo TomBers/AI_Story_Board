@@ -8,9 +8,30 @@ defmodule Aistorybook.Page.Access do
     |> Ash.read_one!()
   end
 
+  def cycle_image(panel, direction) do
+    image = cycle_image(panel.images, panel.image_id, direction)
+    set_panel_image(panel, image)
+  end
+
+  defp cycle_image(images, current_image_id, direction) when direction in [:next, :previous] do
+    # Find the index of the current image
+    current_index = Enum.find_index(images, fn image -> image.id == current_image_id end)
+
+    # Calculate the new index based on the direction
+    new_index =
+      case direction do
+        :next -> rem(current_index + 1, length(images))
+        :previous -> rem(current_index - 1 + length(images), length(images))
+      end
+
+    # Return the id of the new image
+    Enum.at(images, new_index)
+  end
+
   def set_panel_image(panel, img) do
     panel
     |> Ash.Changeset.for_update(:set_img_id, %{image_id: img.id})
+    |> Ash.Changeset.load([:images])
     |> Ash.update!()
   end
 end

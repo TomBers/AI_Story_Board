@@ -34,6 +34,16 @@ defmodule AistorybookWeb.Comps.PanelComp do
     {:noreply, assign(socket, panel: updated_panel)}
   end
 
+  def handle_event("next_image", _params, socket) do
+    updated_panel = Aistorybook.Page.Access.cycle_image(socket.assigns.panel, :next)
+    {:noreply, assign(socket, panel: updated_panel)}
+  end
+
+  def handle_event("previous_image", _params, socket) do
+    updated_panel = Aistorybook.Page.Access.cycle_image(socket.assigns.panel, :previous)
+    {:noreply, assign(socket, panel: updated_panel)}
+  end
+
   def get_panel_img(panel) do
     panel.images
     |> Enum.find(&(&1.id == panel.image_id))
