@@ -11,6 +11,10 @@ defmodule Aistorybook.Page.Resources.Panel do
     update :update do
       accept [:text, :image_prompt, :page_id]
     end
+
+    update :set_img_id do
+      accept [:image_id]
+    end
   end
 
   attributes do
@@ -22,6 +26,11 @@ defmodule Aistorybook.Page.Resources.Panel do
     end
 
     attribute :image_prompt, :string do
+      allow_nil? true
+      public? true
+    end
+
+    attribute :image_id, :string do
       allow_nil? true
       public? true
     end

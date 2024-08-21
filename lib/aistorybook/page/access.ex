@@ -7,4 +7,10 @@ defmodule Aistorybook.Page.Access do
     |> Ash.Query.filter(id == ^panel_id)
     |> Ash.read_one!()
   end
+
+  def set_panel_image(panel, img) do
+    panel
+    |> Ash.Changeset.for_update(:set_img_id, %{image_id: img.id})
+    |> Ash.update!()
+  end
 end

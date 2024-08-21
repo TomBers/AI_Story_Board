@@ -29,12 +29,15 @@ defmodule Project.Data do
       })
       |> Ash.create!()
 
-    Aistorybook.Image.Resources.Image
-    |> Ash.Changeset.for_create(:create, %{
-      url: "https://picsum.photos/seed/picsum/200/300",
-      panel_id: panel.id
-    })
-    |> Ash.create!()
+    image =
+      Aistorybook.Image.Resources.Image
+      |> Ash.Changeset.for_create(:create, %{
+        url: "https://picsum.photos/seed/picsum/200/300",
+        panel_id: panel.id
+      })
+      |> Ash.create!()
+
+    Aistorybook.Page.Access.set_panel_image(panel, image)
 
     # List all
     # Ash.read!(Aistorybook.Project.Resources.Project)

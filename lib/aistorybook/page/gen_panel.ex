@@ -1,7 +1,8 @@
 defmodule Aistorybook.Page.GenPanel do
   def gen_image(panel) do
     image = make_image(panel.id, img_gen_req(panel.image_prompt))
-    %{panel | images: panel.images ++ [image]}
+    updated_panel = Aistorybook.Page.Access.set_panel_image(panel, image)
+    %{updated_panel | images: panel.images ++ [image]}
   end
 
   defp img_gen_req(_prompt) do

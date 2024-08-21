@@ -36,8 +36,7 @@ defmodule AistorybookWeb.Comps.PanelComp do
 
   def get_panel_img(panel) do
     panel.images
-    |> Enum.sort(&DateTime.after?(&1.created_at, &2.created_at))
-    |> List.first()
+    |> Enum.find(&(&1.id == panel.image_id))
     |> then(& &1.url)
   end
 end
