@@ -1,5 +1,6 @@
 defmodule AistorybookWeb.BoardLive do
   use Phoenix.LiveView
+  alias Phoenix.LiveView.JS
   alias Aistorybook.Project.Access
   import AistorybookWeb.CoreComponents
 
