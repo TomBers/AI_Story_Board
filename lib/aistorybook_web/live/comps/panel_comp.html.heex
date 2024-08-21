@@ -1,6 +1,13 @@
 <div class="w-full border rounded p-4 mb-4">
-  <div class="flex justify-between mb-2">
-    <img src={get_panel_img(@panel)} />
+  <div
+    class="flex justify-between mb-2"
+    phx-hook="PanelLoader"
+    data-text={@panel.text}
+    data-canvas-id={"panel_canvas_#{@panel.id}"}
+    data-img-url={get_panel_img(@panel)}
+    id={@panel.id}
+  >
+    <canvas id={"panel_canvas_#{@panel.id}"} />
   </div>
   <button phx-click={JS.toggle(to: "#" <> @form_div_id)} id={"panel_edit_button_#{@panel.id}"}>
     <svg
