@@ -12,7 +12,8 @@ defmodule AistorybookWeb.Comps.PageComp do
      assign(socket,
        page: assigns.page,
        indx: assigns.indx,
-       new_panel_form: new_panel_form
+       new_panel_form: new_panel_form,
+       layout: :row
      )}
   end
 
@@ -33,5 +34,36 @@ defmodule AistorybookWeb.Comps.PageComp do
      assign(socket,
        page: updated_page
      )}
+  end
+
+  def handle_event("toggle-output", _params, socket) do
+    layout =
+      if socket.assigns.layout == :row do
+        :col
+      else
+        :row
+      end
+
+    {:noreply,
+     assign(socket,
+       layout: layout
+     )}
+  end
+
+  def get_panel_class(panels, layout) do
+    case length(panels) do
+      1 -> "grid grid-cols-1"
+      2 -> two_col_layout(layout)
+      4 -> "grid grid-cols-2 gap-4"
+      6 -> "grid grid-cols-3 gap-4"
+      _ -> "grid grid-cols-1"
+    end
+  end
+
+  def two_col_layout(layout) do
+    case layout do
+      :row -> "flex flex-row"
+      :col -> "flex flex-col"
+    end
   end
 end

@@ -1,10 +1,28 @@
 <div class="w-full border rounded p-4 mb-4">
   <div class="flex justify-between mb-2">
     <h3 class="font-semibold">Page <%= @indx + 1 %></h3>
+    <button phx-click="toggle-output" id={"page_display_toggle_#{@page.id}"} phx-target={@myself}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="size-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0-3.75-3.75M17.25 21 21 17.25"
+        />
+      </svg>
+    </button>
   </div>
-  <%= for panel <- @page.panels |> Enum.sort(&DateTime.before?(&1.created_at, &2.created_at)) do %>
-    <.live_component module={AistorybookWeb.Comps.PanelComp} id={panel.id} panel={panel} />
-  <% end %>
+  <div class={get_panel_class(@page.panels, @layout)}>
+    <%= for panel <- @page.panels |> Enum.sort(&DateTime.before?(&1.created_at, &2.created_at)) do %>
+      <.live_component module={AistorybookWeb.Comps.PanelComp} id={panel.id} panel={panel} />
+    <% end %>
+  </div>
 
   <button
     phx-click={show_modal("new_panel_#{@page.id}")}
