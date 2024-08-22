@@ -41,4 +41,8 @@ defmodule Aistorybook.Page.Access do
     |> Ash.Changeset.load([:text_config, :images])
     |> Ash.update!()
   end
+
+  def get_text_config(mp) do
+    Map.take(mp, [:font, :font_size, :text_col, :background_col, :x, :y])
+  end
 end

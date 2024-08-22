@@ -15,15 +15,21 @@
     <div class="bg-white p-6 rounded shadow">
       <.simple_form
         for={@form}
-        phx-submit="update_text_config"
+        phx-hook="PanelLoader"
+        data-text={@panel.text}
+        data-canvas-id={"panel_canvas_#{@panel.id}"}
+        data-img-url={get_panel_img(@panel)}
+        data-text-config={Jason.encode!(@text_config)}
+        phx-change="change_text_config"
+        phx-submit="save_text_config"
         id={"update_text_config_form_#{@panel.id}"}
       >
         <.input type="text" label="Font" field={@form[:font]} />
         <.input type="number" label="Font Size" field={@form[:font_size]} />
         <.input type="color" label="Text Col" field={@form[:text_col]} />
         <.input type="color" label="Background Col" field={@form[:background_col]} />
-        <.input type="number" label="X Pox" field={@form[:x]} />
-        <.input type="number" label="Y Pox" field={@form[:y]} />
+        <.input type="range" label="X Pox" min="0" max={@panel.width} field={@form[:x]} />
+        <.input type="range" label="Y Pox" min="0" max={@panel.height} field={@form[:y]} />
         <.button>Save</.button>
       </.simple_form>
     </div>

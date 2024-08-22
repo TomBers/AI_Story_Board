@@ -3,7 +3,7 @@ defmodule AistorybookWeb.Comps.ImgComp do
 
   def update(assigns, socket) do
     text_config =
-      Map.take(assigns.panel.text_config, [:font, :font_size, :text_col, :background_col, :x, :y])
+      Aistorybook.Page.Access.get_text_config(assigns.panel.text_config)
 
     {:ok, assign(socket, panel: assigns.panel, text_config: text_config)}
   end
