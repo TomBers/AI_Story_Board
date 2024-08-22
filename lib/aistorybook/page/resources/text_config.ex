@@ -2,10 +2,14 @@ defmodule Aistorybook.Page.Resources.TextConfig do
   use Ash.Resource, data_layer: Ash.DataLayer.Ets, domain: Aistorybook.Page.Domain
 
   actions do
-    defaults [:read, :update]
+    defaults [:read]
 
     create :create do
       accept [:panel_id]
+    end
+
+    update :update do
+      accept [:font, :font_size, :text_col, :background_col, :x, :y]
     end
   end
 

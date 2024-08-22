@@ -1,16 +1,10 @@
-// Potential params
-// Font
-// Font size
-// Text Color
-// Rect Color
-// X y position
-
 export default function drawPanel({ text, canvasId, imgUrl, textConfig }) {
   console.log(textConfig);
   const tc = JSON.parse(textConfig);
 
   const canvas = document.getElementById(canvasId);
   const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   const img = new Image();
   img.src = imgUrl;
