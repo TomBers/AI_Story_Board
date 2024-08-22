@@ -8,5 +8,6 @@ defmodule Aistorybook.Page.Domain do
   resources do
     resource Aistorybook.Page.Resources.Page
     resource Aistorybook.Page.Resources.Panel
+    resource Aistorybook.Page.Resources.TextConfig
   end
 end

@@ -54,5 +54,6 @@ defmodule Aistorybook.Page.Resources.Panel do
   relationships do
     belongs_to :page, Aistorybook.Page.Resources.Page
     has_many :images, Aistorybook.Image.Resources.Image
+    has_one :text_config, Aistorybook.Page.Resources.TextConfig
   end
 end
