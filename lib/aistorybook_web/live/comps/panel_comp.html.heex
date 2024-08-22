@@ -1,12 +1,11 @@
 <div class="w-full border rounded p-4 mb-4">
-  <div
-    class="relative flex justify-between mb-2"
-    phx-hook="PanelLoader"
-    data-text={@panel.text}
-    data-canvas-id={"panel_canvas_#{@panel.id}"}
-    data-img-url={get_panel_img(@panel)}
-    id={@panel.id}
-  >
+  <div class="relative flex justify-between mb-2" id={@panel.id}>
+    <!-- Canvas -->
+    <.live_component
+      module={AistorybookWeb.Comps.ImgComp}
+      id={"img_comp_#{@panel.id}"}
+      panel={@panel}
+    />
     <!-- Left Arrow -->
     <button
       class="absolute left-2 top-1/2 transform -translate-y-1/2 z-10"
@@ -23,13 +22,6 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
       </svg>
     </button>
-    <!-- Canvas -->
-    <canvas
-      id={"panel_canvas_#{@panel.id}"}
-      height={@panel.height}
-      width={@panel.width}
-      class="mx-auto constrain-max-width"
-    />
     <!-- Right Arrow -->
     <button
       class="absolute right-2 top-1/2 transform -translate-y-1/2 z-10"
