@@ -1,6 +1,7 @@
 <div class="w-full border rounded p-4 mb-4">
   <div class="flex justify-between mb-2">
     <h3 class="font-semibold">Page <%= @indx + 1 %></h3>
+    <a href={"/page/#{@page.id}"}>Preview</a>
     <button phx-click="toggle-output" id={"page_display_toggle_#{@page.id}"} phx-target={@myself}>
       <svg
         xmlns="http://www.w3.org/2000/svg"

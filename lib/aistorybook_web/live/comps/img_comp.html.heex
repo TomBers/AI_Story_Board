@@ -1,0 +1,10 @@
+<canvas
+  id={"panel_canvas_#{@panel.id}"}
+  height={@panel.height}
+  width={@panel.width}
+  phx-hook="PanelLoader"
+  data-text={@panel.text}
+  data-canvas-id={"panel_canvas_#{@panel.id}"}
+  data-img-url={get_panel_img(@panel)}
+  class="mx-auto constrain-max-width"
+/>

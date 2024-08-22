@@ -1,6 +1,13 @@
 defmodule Aistorybook.Page.Access do
   require Ash.Query
 
+  def get_page_by_id(page_id) do
+    Aistorybook.Page.Resources.Page
+    |> Ash.Query.load(panels: [:images])
+    |> Ash.Query.filter(id == ^page_id)
+    |> Ash.read_one!()
+  end
+
   def get_panel_by_id(panel_id) do
     Aistorybook.Page.Resources.Panel
     |> Ash.Query.load(:images)

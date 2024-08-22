@@ -22,6 +22,7 @@ defmodule AistorybookWeb.Router do
     get "/", PageController, :home
 
     live "/board", BoardLive
+    live "/page/:page_id", PageViewLive
   end
 
   scope "/admin" do
