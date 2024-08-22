@@ -3,9 +3,11 @@
 // Font size
 // Text Color
 // Rect Color
-// Text Position 9 pos, left, center, right * top, middle, bottom
+// X y position
 
-export default function drawPanel({ text, canvasId, imgUrl }) {
+export default function drawPanel({ text, canvasId, imgUrl, textConfig }) {
+  const tc = JSON.parse(textConfig);
+
   const canvas = document.getElementById(canvasId);
   const ctx = canvas.getContext("2d");
 
@@ -19,7 +21,7 @@ export default function drawPanel({ text, canvasId, imgUrl }) {
 
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.font = "40px Arial";
+    ctx.font = `${tc["font_size"]}px ${tc["font_family"]}`;
 
     measure = ctx.measureText(text);
 
@@ -30,16 +32,16 @@ export default function drawPanel({ text, canvasId, imgUrl }) {
       measure.actualBoundingBoxDescent +
       padding;
 
-    const x = canvas.width / 2; // Center horizontally
+    const x = tc["x"];
     // const y = canvas.height / 2; // Center vertically
-    const y = canvas.height - height / 2;
+    const y = tc["y"];
 
     ctx.rect(x - width / 2, y - height / 2, width, height);
-    ctx.fillStyle = "black";
+    ctx.fillStyle = tc["background_col"];
     ctx.fill();
 
     // Set text properties
-    ctx.fillStyle = "white";
+    ctx.fillStyle = tc["text_col"];
 
     // Position and draw the text over the image
     ctx.fillText(text, x, y);

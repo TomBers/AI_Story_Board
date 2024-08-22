@@ -6,5 +6,15 @@
   data-text={@panel.text}
   data-canvas-id={"panel_canvas_#{@panel.id}"}
   data-img-url={get_panel_img(@panel)}
+  data-text-config={
+    Jason.encode!(%{
+      text_col: "#4287f5",
+      background_col: "blue",
+      font_size: 60,
+      font_family: "Arial",
+      x: 50,
+      y: 50
+    })
+  }
   class="mx-auto constrain-max-width"
 />
