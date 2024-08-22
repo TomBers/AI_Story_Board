@@ -24,7 +24,7 @@
         phx-submit="save_text_config"
         id={"update_text_config_form_#{@panel.id}"}
       >
-        <.input type="text" label="Font" field={@form[:font]} />
+        <.input type="select" options={font_options()} label="Font" field={@form[:font]} />
         <.input type="number" label="Font Size" field={@form[:font_size]} />
         <.input type="color" label="Text Col" field={@form[:text_col]} />
         <.input type="color" label="Background Col" field={@form[:background_col]} />

@@ -1,6 +1,8 @@
 export default function drawPanel({ text, canvasId, imgUrl, textConfig }) {
   const tc = JSON.parse(textConfig);
 
+  console.log(tc);
+
   const canvas = document.getElementById(canvasId);
   const ctx = canvas.getContext("2d");
 
@@ -15,7 +17,10 @@ export default function drawPanel({ text, canvasId, imgUrl, textConfig }) {
 
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.font = `${tc["font_size"]}px ${tc["font_family"]}`;
+
+    const font = `${tc["font_size"]}px ${tc["font"]}`;
+    console.log(font);
+    ctx.font = font;
 
     measure = ctx.measureText(text);
 

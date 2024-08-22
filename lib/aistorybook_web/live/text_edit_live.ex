@@ -17,6 +17,8 @@ defmodule AistorybookWeb.TextEditLive do
   end
 
   def handle_event("change_text_config", %{"form" => params}, socket) do
+    IO.inspect(params, label: "params")
+
     new_tc = %{
       font: params["font"],
       font_size: params["font_size"] |> String.to_integer(),
@@ -49,5 +51,25 @@ defmodule AistorybookWeb.TextEditLive do
     panel.images
     |> Enum.find(&(&1.id == panel.image_id))
     |> then(& &1.url)
+  end
+
+  def font_options do
+    fonts = [
+      "Times New Roman",
+      "Georgia",
+      "Garamond",
+      "Arial",
+      "Verdana",
+      "Helvetica",
+      "Courier New",
+      "Lucida Console",
+      "Monaco",
+      "Brush Script MT",
+      "Lucida Handwriting",
+      "Copperplate",
+      "Papyrus"
+    ]
+
+    fonts |> Enum.map(&{&1, &1})
   end
 end
