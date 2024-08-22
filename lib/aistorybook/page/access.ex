@@ -3,14 +3,14 @@ defmodule Aistorybook.Page.Access do
 
   def get_page_by_id(page_id) do
     Aistorybook.Page.Resources.Page
-    |> Ash.Query.load(panels: [:images])
+    |> Ash.Query.load(panels: [:text_config, :images])
     |> Ash.Query.filter(id == ^page_id)
     |> Ash.read_one!()
   end
 
   def get_panel_by_id(panel_id) do
     Aistorybook.Page.Resources.Panel
-    |> Ash.Query.load(:images)
+    |> Ash.Query.load([:text_config, :images])
     |> Ash.Query.filter(id == ^panel_id)
     |> Ash.read_one!()
   end
@@ -38,7 +38,7 @@ defmodule Aistorybook.Page.Access do
   def set_panel_image(panel, img) do
     panel
     |> Ash.Changeset.for_update(:set_img_id, %{image_id: img.id})
-    |> Ash.Changeset.load([:images])
+    |> Ash.Changeset.load([:text_config, :images])
     |> Ash.update!()
   end
 end

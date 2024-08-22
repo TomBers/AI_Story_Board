@@ -2,7 +2,10 @@ defmodule AistorybookWeb.Comps.ImgComp do
   use Phoenix.LiveComponent
 
   def update(assigns, socket) do
-    {:ok, assign(socket, panel: assigns.panel)}
+    text_config =
+      Map.take(assigns.panel.text_config, [:font, :font_size, :text_col, :background_col, :x, :y])
+
+    {:ok, assign(socket, panel: assigns.panel, text_config: text_config)}
   end
 
   def get_panel_img(panel) do

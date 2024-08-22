@@ -3,7 +3,7 @@ defmodule Aistorybook.Project.Access do
 
   def get_project_by_name(name) do
     Aistorybook.Project.Resources.Project
-    |> Ash.Query.load(chapters: [pages: [panels: [:images]]])
+    |> Ash.Query.load(chapters: [pages: [panels: [:text_config, :images]]])
     |> Ash.Query.filter(name == ^name)
     |> Ash.read_one!()
   end

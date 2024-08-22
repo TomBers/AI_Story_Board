@@ -6,6 +6,7 @@
 // X y position
 
 export default function drawPanel({ text, canvasId, imgUrl, textConfig }) {
+  console.log(textConfig);
   const tc = JSON.parse(textConfig);
 
   const canvas = document.getElementById(canvasId);

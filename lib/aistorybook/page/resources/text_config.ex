@@ -2,7 +2,11 @@ defmodule Aistorybook.Page.Resources.TextConfig do
   use Ash.Resource, data_layer: Ash.DataLayer.Ets, domain: Aistorybook.Page.Domain
 
   actions do
-    defaults [:read, :create, :update]
+    defaults [:read, :update]
+
+    create :create do
+      accept [:panel_id]
+    end
   end
 
   attributes do
@@ -20,7 +24,7 @@ defmodule Aistorybook.Page.Resources.TextConfig do
       public? true
     end
 
-    attribute :font_col, :string do
+    attribute :text_col, :string do
       allow_nil? false
       default "white"
       public? true
@@ -34,18 +38,18 @@ defmodule Aistorybook.Page.Resources.TextConfig do
 
     attribute :x, :integer do
       allow_nil? false
-      default 100
+      default 200
       public? true
     end
 
     attribute :y, :integer do
       allow_nil? false
-      default 100
+      default 200
       public? true
     end
   end
 
   relationships do
-    belongs_to :panle, Aistorybook.Page.Resources.Panel
+    belongs_to :panel, Aistorybook.Page.Resources.Panel
   end
 end
