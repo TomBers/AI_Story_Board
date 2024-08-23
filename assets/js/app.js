@@ -31,11 +31,11 @@ let csrfToken = document
 let Hooks = {};
 Hooks.PanelLoader = {
   mounted() {
-    console.log("PanelLoader mounted");
+    // console.log("PanelLoader mounted");
     drawPanel(this.el.dataset);
   },
   updated() {
-    console.log("PanelLoader updated");
+    // console.log("PanelLoader updated");
     drawPanel(this.el.dataset);
   },
 };

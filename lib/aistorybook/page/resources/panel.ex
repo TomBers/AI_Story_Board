@@ -12,6 +12,10 @@ defmodule Aistorybook.Page.Resources.Panel do
       accept [:text, :image_prompt, :width, :height, :page_id]
     end
 
+    update :update_text do
+      accept [:text, :font, :font_size, :text_col, :background_col, :x, :y]
+    end
+
     update :set_img_id do
       accept [:image_id]
     end
@@ -44,6 +48,42 @@ defmodule Aistorybook.Page.Resources.Panel do
 
     attribute :image_id, :string do
       allow_nil? true
+      public? true
+    end
+
+    attribute :font, :string do
+      allow_nil? false
+      default "Ariel"
+      public? true
+    end
+
+    attribute :font_size, :integer do
+      allow_nil? false
+      default 30
+      public? true
+    end
+
+    attribute :text_col, :string do
+      allow_nil? false
+      default "#ffffff"
+      public? true
+    end
+
+    attribute :background_col, :string do
+      allow_nil? false
+      default "#000000"
+      public? true
+    end
+
+    attribute :x, :integer do
+      allow_nil? false
+      default 200
+      public? true
+    end
+
+    attribute :y, :integer do
+      allow_nil? false
+      default 200
       public? true
     end
 

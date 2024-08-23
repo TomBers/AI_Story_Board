@@ -10,7 +10,7 @@ defmodule Aistorybook.Page.Access do
 
   def get_panel_by_id(panel_id) do
     Aistorybook.Page.Resources.Panel
-    |> Ash.Query.load(:images)
+    |> Ash.Query.load([:images])
     |> Ash.Query.filter(id == ^panel_id)
     |> Ash.read_one!()
   end
@@ -40,5 +40,9 @@ defmodule Aistorybook.Page.Access do
     |> Ash.Changeset.for_update(:set_img_id, %{image_id: img.id})
     |> Ash.Changeset.load([:images])
     |> Ash.update!()
+  end
+
+  def get_text_config(mp) do
+    Map.take(mp, [:font, :font_size, :text_col, :background_col, :x, :y])
   end
 end
