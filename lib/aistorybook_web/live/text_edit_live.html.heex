@@ -16,7 +16,7 @@
       <.simple_form
         for={@form}
         phx-hook="PanelLoader"
-        data-text={@panel.text}
+        data-text={@txt}
         data-canvas-id={"panel_canvas_#{@panel.id}"}
         data-img-url={get_panel_img(@panel)}
         data-text-config={Jason.encode!(@text_config)}
@@ -24,6 +24,7 @@
         phx-submit="save_text_config"
         id={"update_text_config_form_#{@panel.id}"}
       >
+        <.input type="text" label="Text" field={@form[:text]} />
         <.input type="select" options={font_options()} label="Font" field={@form[:font]} />
         <.input type="number" label="Font Size" field={@form[:font_size]} />
         <.input type="color" label="Text Col" field={@form[:text_col]} />

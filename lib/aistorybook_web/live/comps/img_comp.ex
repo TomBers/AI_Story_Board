@@ -3,7 +3,7 @@ defmodule AistorybookWeb.Comps.ImgComp do
 
   def update(assigns, socket) do
     text_config =
-      Aistorybook.Page.Access.get_text_config(assigns.panel.text_config)
+      Aistorybook.Page.Access.get_text_config(assigns.panel)
 
     {:ok, assign(socket, panel: assigns.panel, text_config: text_config)}
   end

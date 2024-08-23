@@ -31,10 +31,6 @@ defmodule Project.Data do
       })
       |> Ash.create!()
 
-    Aistorybook.Page.Resources.TextConfig
-    |> Ash.Changeset.for_create(:create, %{panel_id: panel.id})
-    |> Ash.create!()
-
     image =
       Aistorybook.Image.Resources.Image
       |> Ash.Changeset.for_create(:create, %{

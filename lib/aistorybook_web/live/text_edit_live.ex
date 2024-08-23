@@ -7,13 +7,14 @@ defmodule AistorybookWeb.TextEditLive do
     panel = Access.get_panel_by_id(panel_id)
 
     form =
-      panel.text_config
-      |> AshPhoenix.Form.for_update(:update, forms: [auto?: true])
+      panel
+      |> AshPhoenix.Form.for_update(:update_text, forms: [auto?: true])
       |> to_form()
+      |> IO.inspect()
 
-    text_config = Access.get_text_config(panel.text_config)
+    text_config = Access.get_text_config(panel)
 
-    {:ok, assign(socket, panel: panel, form: form, text_config: text_config)}
+    {:ok, assign(socket, panel: panel, form: form, text_config: text_config, txt: panel.text)}
   end
 
   def handle_event("change_text_config", %{"form" => params}, socket) do
@@ -28,7 +29,7 @@ defmodule AistorybookWeb.TextEditLive do
       y: params["y"] |> String.to_integer()
     }
 
-    {:noreply, assign(socket, text_config: new_tc)}
+    {:noreply, assign(socket, text_config: new_tc, txt: params["text"])}
   end
 
   def handle_event("save_text_config", %{"form" => params}, socket) do
@@ -37,14 +38,14 @@ defmodule AistorybookWeb.TextEditLive do
         params: params
       )
 
-    panel = Access.get_panel_by_id(updated_panel.panel_id)
+    panel = Access.get_panel_by_id(updated_panel.id)
 
     form =
-      panel.text_config
-      |> AshPhoenix.Form.for_update(:update, forms: [auto?: true])
+      panel
+      |> AshPhoenix.Form.for_update(:update_text, forms: [auto?: true])
       |> to_form()
 
-    {:noreply, assign(socket, panel: panel, form: form)}
+    {:noreply, assign(socket, panel: panel, form: form, txt: panel.text)}
   end
 
   def get_panel_img(panel) do
