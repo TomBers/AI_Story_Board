@@ -31,8 +31,8 @@ defmodule Aistorybook.Page.GenPanel do
     case response.status do
       200 ->
         image_data_base64 = response.body["data"] |> List.first() |> Map.get("b64_json")
-
-        {save_image(image_data_base64), nil}
+        file_name = "ChangeMe.jpg"
+        {save_image(file_name, image_data_base64), nil}
 
       _ ->
         IO.puts("Failed to generate image: #{response.status}")
@@ -40,9 +40,9 @@ defmodule Aistorybook.Page.GenPanel do
     end
   end
 
-  defp save_image(image_data_base64) do
+  defp save_image(file_name, image_data_base64) do
     body = %{
-      "file_name" => "apitest.png",
+      "file_name" => file_name,
       "user_id" => 123,
       "img" => image_data_base64
     }
