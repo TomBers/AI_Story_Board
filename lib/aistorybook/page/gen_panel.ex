@@ -3,12 +3,13 @@ defmodule Aistorybook.Page.GenPanel do
   @api_key System.get_env("OPENAI_API_KEY")
 
   def gen_image(panel) do
-    image = make_image(panel.id, img_gen_req(panel.image_prompt))
+    file_name = "#{panel.id}_#{length(panel.images) + 1}.jpg"
+    image = make_image(panel.id, img_gen_req(file_name, panel.image_prompt))
     updated_panel = Aistorybook.Page.Access.set_panel_image(panel, image)
     %{updated_panel | images: panel.images ++ [image]}
   end
 
-  def img_gen_req(prompt) do
+  def img_gen_req(file_name, prompt) do
     headers = [
       {"Content-Type", "application/json"},
       {"Authorization", "Bearer #{@api_key}"}
@@ -31,7 +32,6 @@ defmodule Aistorybook.Page.GenPanel do
     case response.status do
       200 ->
         image_data_base64 = response.body["data"] |> List.first() |> Map.get("b64_json")
-        file_name = "ChangeMe.jpg"
         {save_image(file_name, image_data_base64), nil}
 
       _ ->
@@ -47,8 +47,7 @@ defmodule Aistorybook.Page.GenPanel do
       "img" => image_data_base64
     }
 
-    Req.post!(url: "http://localhost:4000/api/save-image", json: body) |> IO.inspect()
-    # TODO - return the URL of the saved Image
+    Req.post!(url: "http://localhost:4000/api/save-image", json: body).body["img_url"]
   end
 
   defp make_image(panel_id, {url, meta}) do
