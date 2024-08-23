@@ -32,27 +32,23 @@ defmodule Aistorybook.Page.GenPanel do
       200 ->
         image_data_base64 = response.body["data"] |> List.first() |> Map.get("b64_json")
 
-        save_image(image_data_base64)
+        {save_image(image_data_base64), nil}
 
       _ ->
         IO.puts("Failed to generate image: #{response.status}")
+        {"https://picsum.photos/id/#{Enum.random(1..60)}/200/300", nil}
     end
-
-    # TODO - cyle through a few set images
-    # https://picsum.photos/id/1/200/300
-    {"https://picsum.photos/id/#{Enum.random(1..60)}/200/300", nil}
   end
 
   defp save_image(image_data_base64) do
-    file_name = "generated_image.png"
+    body = %{
+      "file_name" => "apitest.png",
+      "user_id" => 123,
+      "img" => image_data_base64
+    }
 
-    # Decode the base64 string to binary
-    image_data_binary = Base.decode64!(image_data_base64)
-
-    # Write the binary data to a file
-    File.write!(file_name, image_data_binary)
-
-    IO.puts("Image saved as #{file_name}")
+    Req.post!(url: "http://localhost:4000/api/save-image", json: body) |> IO.inspect()
+    # TODO - return the URL of the saved Image
   end
 
   defp make_image(panel_id, {url, meta}) do
