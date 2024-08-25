@@ -1,4 +1,4 @@
 Test the Panel Image generation function
-Deploy changes to image service
+Deploy changes to image service - set the 3 env vars
 Move Data source to Postgres
 Deploy to fly
