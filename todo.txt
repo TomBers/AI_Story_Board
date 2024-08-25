@@ -1,7 +1,4 @@
-Move to Dalle-2 for testing - set image size
+Test the Panel Image generation function
 Deploy changes to image service
-Add Image service as Config var
-Add Place-holder image
-Add Async to Dalle2 call
 Move Data source to Postgres
 Deploy to fly
