@@ -1,7 +1,5 @@
 defmodule AistorybookWeb.HomeLive do
   use Phoenix.LiveView
-  alias Phoenix.LiveView.JS
-  alias Aistorybook.Project.Access
   import AistorybookWeb.CoreComponents
 
   def mount(_params, _session, socket) do

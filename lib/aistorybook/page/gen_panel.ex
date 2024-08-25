@@ -1,6 +1,8 @@
 defmodule Aistorybook.Page.GenPanel do
   @api_url "https://api.openai.com/v1/images/generations"
   @api_key System.get_env("OPENAI_API_KEY")
+  @image_server_api_key System.get_env("USER_API_KEY")
+  @image_server_url System.get_env("IMAGE_SERVER_URL")
 
   def gen_image(panel) do
     image = make_placeholder_image(panel)
@@ -47,13 +49,15 @@ defmodule Aistorybook.Page.GenPanel do
   defp save_image(file_name, image_data_base64, img, save_fn) do
     body = %{
       "file_name" => file_name,
-      "user_id" => 123,
+      "user_id" => @image_server_api_key,
       "img" => image_data_base64
     }
 
+    img_url = Req.post!(url: @image_server_url, json: body).body["img_url"]
+
     save_fn.(
       img,
-      Req.post!(url: "http://localhost:4000/api/save-image", json: body).body["img_url"]
+      img_url
     )
   end
 

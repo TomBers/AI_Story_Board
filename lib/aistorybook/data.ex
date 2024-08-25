@@ -29,8 +29,8 @@ defmodule Project.Data do
       |> Ash.Changeset.for_create(:create, %{
         text: "This is the first label",
         image_prompt: "Create an image of a cactus",
-        width: 500,
-        height: 300,
+        width: 512,
+        height: 512,
         page_id: page.id
       })
       |> Ash.create!()
@@ -38,7 +38,8 @@ defmodule Project.Data do
     image =
       Aistorybook.Image.Resources.Image
       |> Ash.Changeset.for_create(:create, %{
-        url: "https://picsum.photos/seed/picsum/200/300",
+        # url: "https://picsum.photos/seed/picsum/200/300",
+        url: "/images/placeholder.jpg",
         panel_id: panel.id
       })
       |> Ash.create!()
