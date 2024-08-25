@@ -77,13 +77,13 @@ defmodule Aistorybook.Page.Resources.Panel do
 
     attribute :x, :integer do
       allow_nil? false
-      default 200
+      default 512
       public? true
     end
 
     attribute :y, :integer do
       allow_nil? false
-      default 200
+      default 512
       public? true
     end
 

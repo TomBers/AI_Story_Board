@@ -11,6 +11,10 @@ defmodule Aistorybook.Image.Resources.Image do
     update :update do
       accept [:url, :meta, :panel_id]
     end
+
+    update :set_img_url do
+      accept [:url]
+    end
   end
 
   attributes do
