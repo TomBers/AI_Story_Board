@@ -1,9 +1,7 @@
-Add back button to PageView
 Move to Dalle-2 for testing - set image size
 Deploy changes to image service
 Add Image service as Config var
 Add Place-holder image
 Add Async to Dalle2 call
-Add create project page
 Move Data source to Postgres
 Deploy to fly
