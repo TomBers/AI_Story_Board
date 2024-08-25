@@ -8,6 +8,10 @@ defmodule Project.Data do
       |> Ash.Changeset.for_create(:create, %{name: "Test1", style: "In an impressonistic style"})
       |> Ash.create!()
 
+    create_related(project)
+  end
+
+  def create_related(project) do
     chapter =
       Aistorybook.Chapter.Resources.Chapter
       |> Ash.Changeset.for_create(:create, %{name: "Chapter1", project_id: project.id})

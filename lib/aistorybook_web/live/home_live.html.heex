@@ -1,0 +1,12 @@
+<h1>Welcome to AiStorybook</h1>
+<%= for project <- @projects do %>
+  <a href={"/board/#{project.name}"}><%= project.name %></a>
+<% end %>
+
+<h1>Create New Project</h1>
+<.simple_form for={@form} phx-submit="create_project" id="create_project">
+  <.input type="text" label="Project Name" field={@form[:name]} />
+  <.button>
+    Save
+  </.button>
+</.simple_form>

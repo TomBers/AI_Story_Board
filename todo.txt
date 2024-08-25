@@ -1,5 +1,7 @@
-Create change set to Create Chapter
-Create changeset to update chapter name
-
-create form to create panel
-create form to update panel
+Move to Dalle-2 for testing - set image size
+Deploy changes to image service
+Add Image service as Config var
+Add Place-holder image
+Add Async to Dalle2 call
+Move Data source to Postgres
+Deploy to fly

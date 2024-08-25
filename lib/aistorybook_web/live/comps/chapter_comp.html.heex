@@ -1,6 +1,6 @@
 <div>
   <h2 class="font-semibold mb-2">
-    <a href={"/board?chapter=#{@chapter.name}"}><%= @chapter.name %></a>
+    <a href={"/board/#{@project_name}?chapter=#{@chapter.name}"}><%= @chapter.name %></a>
 
     <button
       phx-click={JS.toggle(to: "#" <> @form_div_id)}

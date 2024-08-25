@@ -1,6 +1,11 @@
 defmodule Aistorybook.Project.Access do
   require Ash.Query
 
+  def all_projects do
+    Aistorybook.Project.Resources.Project
+    |> Ash.read!()
+  end
+
   def get_project_by_name(name) do
     Aistorybook.Project.Resources.Project
     |> Ash.Query.load(chapters: [pages: [panels: [:images]]])
@@ -22,5 +27,10 @@ defmodule Aistorybook.Project.Access do
       chapter_id: chapter.id
     })
     |> Ash.create!()
+
+    Aistorybook.Chapter.Resources.Chapter
+    |> Ash.Query.load(pages: [panels: [:images]])
+    |> Ash.Query.filter(id == ^chapter.id)
+    |> Ash.read_one!()
   end
 end

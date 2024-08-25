@@ -63,7 +63,8 @@ defmodule Aistorybook.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
-      {:ash_admin, "~> 0.11.4"}
+      {:ash_admin, "~> 0.11.4"},
+      {:req, "~> 0.5.0"}
     ]
   end
 

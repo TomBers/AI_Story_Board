@@ -21,7 +21,12 @@
   </div>
   <div class={get_panel_class(@page.panels, @layout)}>
     <%= for panel <- @page.panels |> Enum.sort(&DateTime.before?(&1.created_at, &2.created_at)) do %>
-      <.live_component module={AistorybookWeb.Comps.PanelComp} id={panel.id} panel={panel} />
+      <.live_component
+        module={AistorybookWeb.Comps.PanelComp}
+        id={panel.id}
+        panel={panel}
+        project_name={@project_name}
+      />
     <% end %>
   </div>
 

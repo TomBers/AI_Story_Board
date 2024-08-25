@@ -4,9 +4,9 @@ defmodule AistorybookWeb.BoardLive do
   alias Aistorybook.Project.Access
   import AistorybookWeb.CoreComponents
 
-  def mount(params, _session, socket) do
+  def mount(%{"name" => name} = params, _args, socket) do
     chapter_name = Map.get(params, "chapter")
-    project = Access.get_project_by_name("Test1")
+    project = Access.get_project_by_name(name)
 
     chapter = Access.find_chapter_by_name(project, chapter_name)
 
@@ -28,13 +28,13 @@ defmodule AistorybookWeb.BoardLive do
   end
 
   def handle_event("add-page", _params, socket) do
-    Access.add_page_to_chapter(socket.assigns.chapter)
+    chapter = Access.add_page_to_chapter(socket.assigns.chapter)
 
-    project = Access.get_project_by_name("Test1")
+    # project = Access.get_project_by_name("Test1")
 
-    chapter = Access.find_chapter_by_name(project, socket.assigns.chapter_name)
+    # chapter = Access.find_chapter_by_name(project, socket.assigns.chapter_name)
 
-    {:noreply, assign(socket, project: project, chapter: chapter)}
+    {:noreply, assign(socket, chapter: chapter)}
   end
 
   def handle_event("create_new_chapter", %{"form" => params}, socket) do

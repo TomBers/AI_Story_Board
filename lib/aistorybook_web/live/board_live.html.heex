@@ -25,6 +25,7 @@
             module={AistorybookWeb.Comps.ChapterComp}
             id={chapter.id}
             chapter={chapter}
+            project_name={@project.name}
           />
         <% end %>
 
@@ -66,6 +67,7 @@
           module={AistorybookWeb.Comps.PageComp}
           id={page.id}
           page={page}
+          project_name={@project.name}
           indx={indx}
         />
       <% end %>
