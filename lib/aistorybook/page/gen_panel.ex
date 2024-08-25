@@ -3,6 +3,17 @@ defmodule Aistorybook.Page.GenPanel do
   @image_server_api_key System.get_env("USER_API_KEY")
   @image_server_url System.get_env("IMAGE_SERVER_URL")
 
+  def test do
+    panel =
+      Aistorybook.Page.Resources.Panel
+      |> Ash.Query.load([:images])
+      |> Ash.read_one!()
+
+    img = List.first(panel.images)
+
+    generate_and_save_img(panel, img, fn _img, url -> IO.inspect(url, label: "url") end)
+  end
+
   def gen_image(panel) do
     image = make_placeholder_image(panel)
 
@@ -18,15 +29,18 @@ defmodule Aistorybook.Page.GenPanel do
     body = %{
       "file_name" => file_name,
       "user_id" => @image_server_api_key,
-      "prompt" => panel.prompt,
+      "prompt" => panel.image_prompt,
       "api_key" => @openai_api_key
     }
 
-    img_url = Req.post!(url: @image_server_url, json: body).body["img_url"]
+    IO.inspect(body, label: "body")
+
+    res = Req.post!(url: @image_server_url, json: body)
+    IO.inspect(res, label: "res")
 
     save_fn.(
       img,
-      img_url
+      res.body["img_url"]
     )
   end
 
