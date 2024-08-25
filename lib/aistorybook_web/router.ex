@@ -19,11 +19,10 @@ defmodule AistorybookWeb.Router do
   scope "/", AistorybookWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
-
-    live "/board", BoardLive
+    live "/", HomeLive
+    live "/board/:name", BoardLive
     live "/page/:page_id", PageViewLive
-    live "/edit/:panel_id", TextEditLive
+    live "/edit/:board_name/:panel_id", TextEditLive
   end
 
   scope "/admin" do

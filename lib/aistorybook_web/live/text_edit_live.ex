@@ -3,18 +3,24 @@ defmodule AistorybookWeb.TextEditLive do
   alias Aistorybook.Page.Access
   import AistorybookWeb.CoreComponents
 
-  def mount(%{"panel_id" => panel_id}, _p, socket) do
+  def mount(%{"board_name" => board_name, "panel_id" => panel_id}, _p, socket) do
     panel = Access.get_panel_by_id(panel_id)
 
     form =
       panel
       |> AshPhoenix.Form.for_update(:update_text, forms: [auto?: true])
       |> to_form()
-      |> IO.inspect()
 
     text_config = Access.get_text_config(panel)
 
-    {:ok, assign(socket, panel: panel, form: form, text_config: text_config, txt: panel.text)}
+    {:ok,
+     assign(socket,
+       panel: panel,
+       form: form,
+       text_config: text_config,
+       txt: panel.text,
+       board_name: board_name
+     )}
   end
 
   def handle_event("change_text_config", %{"form" => params}, socket) do

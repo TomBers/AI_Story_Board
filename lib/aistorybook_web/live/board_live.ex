@@ -4,9 +4,9 @@ defmodule AistorybookWeb.BoardLive do
   alias Aistorybook.Project.Access
   import AistorybookWeb.CoreComponents
 
-  def mount(params, _session, socket) do
+  def mount(%{"name" => name} = params, _args, socket) do
     chapter_name = Map.get(params, "chapter")
-    project = Access.get_project_by_name("Test1")
+    project = Access.get_project_by_name(name)
 
     chapter = Access.find_chapter_by_name(project, chapter_name)
 

@@ -1,0 +1,4 @@
+<h1>Welcome to AiStorybook</h1>
+<%= for project <- @projects do %>
+  <a href={"/board/#{project.name}"}><%= project.name %></a>
+<% end %>

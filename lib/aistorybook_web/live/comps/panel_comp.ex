@@ -12,7 +12,13 @@ defmodule AistorybookWeb.Comps.PanelComp do
 
     form_div_id = "update_panel_form_id_#{assigns.panel.id}"
 
-    {:ok, assign(socket, panel: assigns.panel, form: form, form_div_id: form_div_id)}
+    {:ok,
+     assign(socket,
+       panel: assigns.panel,
+       form: form,
+       form_div_id: form_div_id,
+       project_name: assigns.project_name
+     )}
   end
 
   def handle_event("change_panel", %{"form" => params}, socket) do
