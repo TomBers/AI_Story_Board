@@ -22,7 +22,7 @@ defmodule Aistorybook.Project.Resources.Project do
     end
 
     attribute :style, :string do
-      allow_nil? false
+      allow_nil? true
       public? true
     end
 

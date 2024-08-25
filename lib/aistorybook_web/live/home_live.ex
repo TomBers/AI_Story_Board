@@ -16,4 +16,11 @@ defmodule AistorybookWeb.HomeLive do
 
     {:ok, assign(socket, projects: projects, form: form)}
   end
+
+  def handle_event("create_project", %{"form" => params}, socket) do
+    {:ok, project} = AshPhoenix.Form.submit(socket.assigns.form, params: params)
+    Project.Data.create_related(project)
+
+    {:noreply, socket |> push_navigate(to: "/board/#{project.name}")}
+  end
 end

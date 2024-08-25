@@ -15,7 +15,8 @@ defmodule AistorybookWeb.Comps.ChapterComp do
      assign(socket,
        chapter: assigns.chapter,
        form: form,
-       form_div_id: form_div_id
+       form_div_id: form_div_id,
+       project_name: assigns.project_name
      )}
   end
 

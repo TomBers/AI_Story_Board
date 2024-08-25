@@ -24,8 +24,6 @@ defmodule AistorybookWeb.TextEditLive do
   end
 
   def handle_event("change_text_config", %{"form" => params}, socket) do
-    IO.inspect(params, label: "params")
-
     new_tc = %{
       font: params["font"],
       font_size: params["font_size"] |> String.to_integer(),
@@ -51,7 +49,8 @@ defmodule AistorybookWeb.TextEditLive do
       |> AshPhoenix.Form.for_update(:update_text, forms: [auto?: true])
       |> to_form()
 
-    {:noreply, assign(socket, panel: panel, form: form, txt: panel.text)}
+    {:noreply,
+     assign(socket, panel: panel, form: form, txt: panel.text) |> put_flash(:info, "Saved")}
   end
 
   def get_panel_img(panel) do

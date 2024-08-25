@@ -27,5 +27,10 @@ defmodule Aistorybook.Project.Access do
       chapter_id: chapter.id
     })
     |> Ash.create!()
+
+    Aistorybook.Chapter.Resources.Chapter
+    |> Ash.Query.load(pages: [panels: [:images]])
+    |> Ash.Query.filter(id == ^chapter.id)
+    |> Ash.read_one!()
   end
 end
