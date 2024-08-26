@@ -1,8 +1,4 @@
 defmodule Aistorybook.Page.GenPanel do
-  @openai_api_key System.get_env("OPENAI_API_KEY")
-  @image_server_api_key System.get_env("USER_API_KEY")
-  @image_server_url System.get_env("IMAGE_SERVER_URL")
-
   def test do
     panel =
       Aistorybook.Page.Resources.Panel
@@ -24,20 +20,24 @@ defmodule Aistorybook.Page.GenPanel do
   end
 
   def generate_and_save_img(panel, img, save_fn) do
+    openai_api_key = System.fetch_env!("OPENAI_API_KEY")
+    image_server_api_key = System.fetch_env!("USER_API_KEY")
+    image_server_url = System.fetch_env!("IMAGE_SERVER_URL")
+
     file_name = "#{panel.id}_#{length(panel.images) + 1}.jpg"
 
     body = %{
       "file_name" => file_name,
-      "user_id" => @image_server_api_key,
+      "user_id" => image_server_api_key,
       "prompt" => panel.image_prompt,
-      "api_key" => @openai_api_key
+      "api_key" => openai_api_key
     }
 
     IO.inspect(body, label: "body")
 
-    IO.inspect(@image_server_url, label: "img_server")
+    IO.inspect(image_server_url, label: "img_server")
 
-    res = Req.post!(url: @image_server_url, json: body, receive_timeout: 120_000)
+    res = Req.post!(url: image_server_url, json: body, receive_timeout: 120_000)
     IO.inspect(res, label: "res")
 
     save_fn.(
