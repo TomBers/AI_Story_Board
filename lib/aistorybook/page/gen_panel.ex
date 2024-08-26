@@ -1,61 +1,55 @@
 defmodule Aistorybook.Page.GenPanel do
-  @api_url "https://api.openai.com/v1/images/generations"
-  @api_key System.get_env("OPENAI_API_KEY")
+  @openai_api_key System.get_env("OPENAI_API_KEY")
+  @image_server_api_key System.get_env("USER_API_KEY")
+  @image_server_url System.get_env("IMAGE_SERVER_URL")
+
+  def test do
+    panel =
+      Aistorybook.Page.Resources.Panel
+      |> Ash.Query.load([:images])
+      |> Ash.read_one!()
+
+    img = List.first(panel.images)
+
+    generate_and_save_img(panel, img, fn _img, url -> IO.inspect(url, label: "url") end)
+  end
 
   def gen_image(panel) do
-    file_name = "#{panel.id}_#{length(panel.images) + 1}.jpg"
-    image = make_image(panel.id, img_gen_req(file_name, panel.image_prompt))
+    image = make_placeholder_image(panel)
+
+    spawn(fn -> generate_and_save_img(panel, image, &Aistorybook.Image.Access.set_image_url/2) end)
+
     updated_panel = Aistorybook.Page.Access.set_panel_image(panel, image)
     %{updated_panel | images: panel.images ++ [image]}
   end
 
-  def img_gen_req(file_name, prompt) do
-    headers = [
-      {"Content-Type", "application/json"},
-      {"Authorization", "Bearer #{@api_key}"}
-    ]
+  def generate_and_save_img(panel, img, save_fn) do
+    file_name = "#{panel.id}_#{length(panel.images) + 1}.jpg"
 
-    body = %{
-      "model" => "dall-e-3",
-      "prompt" => prompt,
-      "n" => 1,
-      "response_format" => "b64_json",
-      "size" => "1024x1024"
-    }
-
-    response =
-      Req.post!(@api_url,
-        headers: headers,
-        json: body
-      )
-
-    case response.status do
-      200 ->
-        image_data_base64 = response.body["data"] |> List.first() |> Map.get("b64_json")
-        {save_image(file_name, image_data_base64), nil}
-
-      _ ->
-        IO.puts("Failed to generate image: #{response.status}")
-        {"https://picsum.photos/id/#{Enum.random(1..60)}/200/300", nil}
-    end
-  end
-
-  defp save_image(file_name, image_data_base64) do
     body = %{
       "file_name" => file_name,
-      "user_id" => 123,
-      "img" => image_data_base64
+      "user_id" => @image_server_api_key,
+      "prompt" => panel.image_prompt,
+      "api_key" => @openai_api_key
     }
 
-    Req.post!(url: "http://localhost:4000/api/save-image", json: body).body["img_url"]
+    IO.inspect(body, label: "body")
+
+    res = Req.post!(url: @image_server_url, json: body)
+    IO.inspect(res, label: "res")
+
+    save_fn.(
+      img,
+      res.body["img_url"]
+    )
   end
 
-  defp make_image(panel_id, {url, meta}) do
+  def make_placeholder_image(panel) do
     Aistorybook.Image.Resources.Image
     |> Ash.Changeset.for_create(:create, %{
-      url: url,
-      panel_id: panel_id,
-      meta: meta
+      url: "/images/placeholder.jpg",
+      panel_id: panel.id,
+      meta: nil
     })
     |> Ash.create!()
   end
