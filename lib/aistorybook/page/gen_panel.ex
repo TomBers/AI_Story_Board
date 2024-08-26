@@ -33,10 +33,12 @@ defmodule Aistorybook.Page.GenPanel do
       "api_key" => @openai_api_key
     }
 
-    # IO.inspect(body, label: "body")
+    IO.inspect(body, label: "body")
+
+    IO.inspect(@image_server_url, label: "img_server")
 
     res = Req.post!(url: @image_server_url, json: body, receive_timeout: 120_000)
-    # IO.inspect(res, label: "res")
+    IO.inspect(res, label: "res")
 
     save_fn.(
       img,
