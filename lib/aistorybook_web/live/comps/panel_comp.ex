@@ -24,7 +24,7 @@ defmodule AistorybookWeb.Comps.PanelComp do
   def handle_event("change_panel", %{"form" => params}, socket) do
     {:ok, panel} = AshPhoenix.Form.submit(socket.assigns.form, params: params)
 
-    updated_panel = GenPanel.gen_image(socket.assigns.panel)
+    updated_panel = GenPanel.gen_image(Aistorybook.Page.Access.get_panel_by_id(panel.id))
 
     form =
       panel
