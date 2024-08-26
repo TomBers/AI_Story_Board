@@ -1,14 +1,48 @@
-<div class="w-full p-4 bg-black text-white min-h-screen flex items-center justify-center">
-  <!-- Panels Layout -->
-  <div class="grid grid-cols-2 gap-4">
-    <%= for panel <- @page.panels |> Enum.sort(&DateTime.before?(&1.created_at, &2.created_at)) do %>
-      <div class="p-2">
-        <.live_component
-          module={AistorybookWeb.Comps.ImgComp}
-          id={"img_comp_#{panel.id}"}
-          panel={panel}
-        />
-      </div>
-    <% end %>
+<div class="w-full p-4 bg-black text-white min-h-screen">
+  <a href={"/board/#{@project_name}"}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="size-6"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+      />
+    </svg>
+  </a>
+  <button phx-click="toggle-output" id="display_toggle">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="size-6"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0-3.75-3.75M17.25 21 21 17.25"
+      />
+    </svg>
+  </button>
+  <div class="flex items-center justify-center">
+    <!-- Panels Layout -->
+    <div class={AistorybookWeb.Comps.LayoutUtil.get_panel_class(@page.panels, @row_or_col)}>
+      <%= for panel <- @page.panels |> Enum.sort(&DateTime.before?(&1.created_at, &2.created_at)) do %>
+        <div class="p-2">
+          <.live_component
+            module={AistorybookWeb.Comps.ImgComp}
+            id={"img_comp_#{panel.id}"}
+            panel={panel}
+          />
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

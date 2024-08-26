@@ -21,7 +21,7 @@ defmodule Aistorybook.Application do
     ]
 
     # Insert some test data
-    Project.Data.run()
+    # Project.Data.run()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
