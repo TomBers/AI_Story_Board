@@ -5,6 +5,8 @@ defmodule AistorybookWeb.BoardLive do
   import AistorybookWeb.CoreComponents
 
   def mount(%{"name" => name} = params, _args, socket) do
+    Phoenix.PubSub.subscribe(Aistorybook.PubSub, "updated_panel")
+
     chapter_name = Map.get(params, "chapter")
     project = Access.get_project_by_name(name)
 
@@ -57,5 +59,17 @@ defmodule AistorybookWeb.BoardLive do
       |> to_form()
 
     {:noreply, assign(socket, project: updated_project, new_chapter_form: new_chapter_form)}
+  end
+
+  def handle_info(%{page_id: updated_page_id}, socket) do
+    chapter = Enum.find(socket.assigns.project.chapters, &(&1.id == socket.assigns.chapter.id))
+
+    if Enum.any?(chapter.pages, &(&1.id == updated_page_id)) do
+      project = Access.get_project_by_name(socket.assigns.project.name)
+      chapter = Access.find_chapter_by_name(project, socket.assigns.chapter_name)
+      {:noreply, assign(socket, project: project, chapter: chapter)}
+    else
+      {:noreply, socket}
+    end
   end
 end

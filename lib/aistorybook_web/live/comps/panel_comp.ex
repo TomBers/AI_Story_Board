@@ -43,4 +43,20 @@ defmodule AistorybookWeb.Comps.PanelComp do
     updated_panel = Aistorybook.Page.Access.cycle_image(socket.assigns.panel, :previous)
     {:noreply, assign(socket, panel: updated_panel)}
   end
+
+  def handle_event("test", _params, socket) do
+    panel = socket.assigns.panel
+
+    image =
+      panel.images
+      |> Enum.find(&(&1.id == panel.image_id))
+
+    Aistorybook.Image.Access.set_image_url(
+      image,
+      "https://picsum.photos/seed/#{Enum.random(1..60)}/512/512",
+      panel.page_id
+    )
+
+    {:noreply, socket}
+  end
 end

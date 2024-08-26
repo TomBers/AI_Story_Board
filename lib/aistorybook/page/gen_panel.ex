@@ -1,19 +1,8 @@
 defmodule Aistorybook.Page.GenPanel do
-  def test do
-    panel =
-      Aistorybook.Page.Resources.Panel
-      |> Ash.Query.load([:images])
-      |> Ash.read_one!()
-
-    img = List.first(panel.images)
-
-    generate_and_save_img(panel, img, fn _img, url -> IO.inspect(url, label: "url") end)
-  end
-
   def gen_image(panel) do
     image = make_placeholder_image(panel)
 
-    spawn(fn -> generate_and_save_img(panel, image, &Aistorybook.Image.Access.set_image_url/2) end)
+    spawn(fn -> generate_and_save_img(panel, image, &Aistorybook.Image.Access.set_image_url/3) end)
 
     updated_panel = Aistorybook.Page.Access.set_panel_image(panel, image)
     %{updated_panel | images: panel.images ++ [image]}
@@ -42,7 +31,8 @@ defmodule Aistorybook.Page.GenPanel do
 
     save_fn.(
       img,
-      res.body["img_url"]
+      res.body["img_url"],
+      panel.page_id
     )
   end
 
