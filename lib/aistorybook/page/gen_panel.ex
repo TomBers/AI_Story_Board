@@ -35,7 +35,7 @@ defmodule Aistorybook.Page.GenPanel do
 
     # IO.inspect(body, label: "body")
 
-    res = Req.post!(url: @image_server_url, json: body)
+    res = Req.post!(url: @image_server_url, json: body, receive_timeout: 120_000)
     # IO.inspect(res, label: "res")
 
     save_fn.(
