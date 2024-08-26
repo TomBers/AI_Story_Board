@@ -1,5 +1,10 @@
 defmodule Aistorybook.Image.Resources.Image do
-  use Ash.Resource, data_layer: Ash.DataLayer.Ets, domain: Aistorybook.Image.Domain
+  use Ash.Resource, data_layer: AshPostgres.DataLayer, domain: Aistorybook.Image.Domain
+
+  postgres do
+    table "images"
+    repo Aistorybook.Repo
+  end
 
   actions do
     defaults [:read]

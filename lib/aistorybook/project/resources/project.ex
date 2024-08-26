@@ -1,5 +1,10 @@
 defmodule Aistorybook.Project.Resources.Project do
-  use Ash.Resource, data_layer: Ash.DataLayer.Ets, domain: Aistorybook.Project.Domain
+  use Ash.Resource, data_layer: AshPostgres.DataLayer, domain: Aistorybook.Project.Domain
+
+  postgres do
+    table "projects"
+    repo Aistorybook.Repo
+  end
 
   actions do
     defaults [:read]

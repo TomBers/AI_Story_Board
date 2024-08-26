@@ -21,7 +21,7 @@ defmodule AistorybookWeb.Router do
 
     live "/", HomeLive
     live "/board/:name", BoardLive
-    live "/page/:page_id", PageViewLive
+    live "/page/:page_id/:project_name", PageViewLive
     live "/edit/:board_name/:panel_id", TextEditLive
   end
 
