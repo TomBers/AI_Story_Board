@@ -1,6 +1,5 @@
 defmodule AistorybookWeb.StoryEditLive do
   use Phoenix.LiveView
-  alias Phoenix.LiveView.JS
   import AistorybookWeb.CoreComponents
 
   alias Aistorybook.Project.Access
@@ -13,7 +12,7 @@ defmodule AistorybookWeb.StoryEditLive do
       |> AshPhoenix.Form.for_create(:create,
         forms: [auto?: true],
         prepare_source: fn params ->
-          update_in(params.data.text, fn v -> "A Sample" end) |> IO.inspect()
+          update_in(params.data.text, fn _v -> "A Sample" end)
         end
       )
       |> to_form()
@@ -22,12 +21,11 @@ defmodule AistorybookWeb.StoryEditLive do
   end
 
   def panel_options(project) do
-    panels =
-      project.chapters
-      |> Enum.flat_map(fn chapter ->
-        get_pages(chapter.pages)
-        |> Enum.map(fn {page, indx} -> {"#{chapter.name}_Page_#{indx}", page.id} end)
-      end)
+    project.chapters
+    |> Enum.flat_map(fn chapter ->
+      get_pages(chapter.pages)
+      |> Enum.map(fn {page, indx} -> {"#{chapter.name}_Page_#{indx}", page.id} end)
+    end)
   end
 
   def get_pages(pages) do
