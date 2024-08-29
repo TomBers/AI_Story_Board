@@ -40,6 +40,36 @@ Hooks.PanelLoader = {
   },
 };
 
+Hooks.LoadTextEditor = {
+  mounted() {
+    const quill = new Quill(this.el, {
+      theme: "snow",
+      placeholder: "Compose an epic...",
+    });
+
+    content = JSON.parse(this.el.dataset.initialContent);
+    quill.setContents(content.ops);
+
+    quill.on("text-change", (delta, oldDelta, source) => {
+      console.log();
+      this.pushEvent("store-text", quill.getContents());
+    });
+
+    quill.on("selection-change", (range, oldRange, source) => {
+      if (range) {
+        if (range.length == 0) {
+          console.log("User cursor is on", range.index);
+        } else {
+          const text = quill.getText(range.index, range.length);
+          console.log("User has highlighted", text);
+        }
+      } else {
+        console.log("Cursor not in the editor");
+      }
+    });
+  },
+};
+
 let liveSocket = new LiveSocket("/live", Socket, {
   hooks: Hooks,
   longPollFallbackMs: 2500,

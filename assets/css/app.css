@@ -6,3 +6,7 @@
 .constrain-max-width {
     max-width: 100%;
 }
+
+#textEditor {
+    min-height: 400px;
+}
