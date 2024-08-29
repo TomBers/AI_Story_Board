@@ -1,5 +1,10 @@
-<div class="container mx-auto">
-  <h1>Story</h1>
-  <div phx-hook="LoadTextEditor" data-initial-content={Jason.encode!(@data)} id="textEditor">
-  </div>
+<div class="container mx-auto mt-8">
+  <button
+    phx-hook="SaveText"
+    id="saveTextBtn"
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+  >
+    Save
+  </button>
+  <div phx-hook="LoadTextEditor" data-initial-content={@project.notes} id="textEditor"></div>
 </div>

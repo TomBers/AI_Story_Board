@@ -6,6 +6,12 @@ defmodule Aistorybook.Project.Access do
     |> Ash.read!()
   end
 
+  def update_notes(project, notes) do
+    project
+    |> Ash.Changeset.for_update(:update_notes, %{notes: Jason.encode!(notes)})
+    |> Ash.update!()
+  end
+
   def get_project_by_name(name) do
     Aistorybook.Project.Resources.Project
     |> Ash.Query.load(chapters: [pages: [panels: [:images]]])

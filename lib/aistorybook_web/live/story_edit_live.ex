@@ -1,22 +1,14 @@
 defmodule AistorybookWeb.StoryEditLive do
   use Phoenix.LiveView
-  # import AistorybookWeb.CoreComponents
+  alias Aistorybook.Project.Access
 
-  def mount(_params, _session, socket) do
-    data = %{
-      "ops" => [
-        %{"attributes" => %{"bold" => true}, "insert" => "fasdsafdsfds "},
-        %{"insert" => "dsadsa "},
-        %{"attributes" => %{"italic" => true}, "insert" => "dsasd"},
-        %{"insert" => " dsadsa\n"}
-      ]
-    }
-
-    {:ok, assign(socket, data: data)}
+  def mount(%{"project_name" => project_name}, _session, socket) do
+    project = Access.get_project_by_name(project_name)
+    {:ok, assign(socket, project: project)}
   end
 
   def handle_event("store-text", contents, socket) do
-    IO.inspect(contents)
-    {:noreply, socket}
+    Access.update_notes(socket.assigns.project, contents)
+    {:noreply, socket |> put_flash(:info, "Saved")}
   end
 end

@@ -23,6 +23,7 @@ import { LiveSocket } from "phoenix_live_view";
 import topbar from "../vendor/topbar";
 
 import drawPanel from "./graphics";
+import setupQuill from "./textEdit";
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
@@ -42,30 +43,16 @@ Hooks.PanelLoader = {
 
 Hooks.LoadTextEditor = {
   mounted() {
-    const quill = new Quill(this.el, {
-      theme: "snow",
-      placeholder: "Compose an epic...",
-    });
+    quill = setupQuill(this);
+    window.quill = quill;
+  },
+};
 
-    content = JSON.parse(this.el.dataset.initialContent);
-    quill.setContents(content.ops);
-
-    quill.on("text-change", (delta, oldDelta, source) => {
-      console.log();
-      this.pushEvent("store-text", quill.getContents());
-    });
-
-    quill.on("selection-change", (range, oldRange, source) => {
-      if (range) {
-        if (range.length == 0) {
-          console.log("User cursor is on", range.index);
-        } else {
-          const text = quill.getText(range.index, range.length);
-          console.log("User has highlighted", text);
-        }
-      } else {
-        console.log("Cursor not in the editor");
-      }
+Hooks.SaveText = {
+  mounted() {
+    const ctx = this;
+    this.el.addEventListener("click", (e) => {
+      ctx.pushEvent("store-text", window.quill.getContents());
     });
   },
 };

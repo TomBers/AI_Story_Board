@@ -9,4 +9,20 @@
 
 #textEditor {
     min-height: 400px;
+    font-size: 1.4em;
+}
+
+.ql-toolbar {
+    position: fixed;
+    top: 0;
+    background-color: #fff !important;
+    z-index: 1000;
+}
+
+#saveTextBtn {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 10px; /* Optional: adds a little spacing from the edges */
+    z-index: 1000;
 }
