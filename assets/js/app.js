@@ -57,6 +57,16 @@ Hooks.SaveText = {
   },
 };
 
+function coordinate(event) {
+  const rect = event.currentTarget.getBoundingClientRect();
+
+  // Calculate mouse position relative to the entire document
+  window.mouseX = event.clientX + window.scrollX;
+  window.mouseY = event.clientY + window.scrollY;
+}
+
+window.coordinate = coordinate;
+
 let liveSocket = new LiveSocket("/live", Socket, {
   hooks: Hooks,
   longPollFallbackMs: 2500,

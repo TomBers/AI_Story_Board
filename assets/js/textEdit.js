@@ -1,4 +1,5 @@
 export default function setupQuill(ctx) {
+  let popUp;
   const element = ctx.el;
   const quill = new Quill(element, {
     theme: "snow",
@@ -20,17 +21,56 @@ export default function setupQuill(ctx) {
   quill.on("selection-change", (range, oldRange, source) => {
     if (range) {
       if (range.length == 0) {
+        removePopup(popUp);
         console.log("User cursor is on", range.index);
       } else {
+        removePopup(popUp);
         const text = quill.getText(range.index, range.length);
-        console.log("User has highlighted", text);
+        popUp = drawPopUp(window.mouseX, window.mouseY, text);
       }
     } else {
+      // removePopup(popUp);
       console.log("Cursor not in the editor");
     }
   });
 
   return quill;
+}
+
+function removePopup(popup) {
+  try {
+    document.body.removeChild(popup);
+  } catch (e) {
+    console.log("No popup");
+  }
+}
+
+function drawPopUp(x, y, text) {
+  // Create a new div element
+  const popUp = document.createElement("div");
+
+  // Set the text content of the div
+  popUp.textContent = "Create panel";
+
+  // Apply some basic styles to the div
+  popUp.style.position = "absolute"; // Position the div relative to the page
+  popUp.style.left = x + "px"; // Set the left position
+  popUp.style.top = y + "px"; // Set the top position
+  popUp.style.padding = "10px"; // Add some padding
+  popUp.style.backgroundColor = "#f9f9f9"; // Set a background color
+  popUp.style.border = "1px solid #ccc"; // Add a border
+  popUp.style.cursor = "pointer"; // Make it look clickable
+  popUp.style.zIndex = "1000"; // Ensure it appears above other elements
+
+  // Make the div clickable
+  popUp.addEventListener("click", function () {
+    alert("You clicked the popup!");
+    removePopup(popUp);
+  });
+
+  // Add the div to the body
+  document.body.appendChild(popUp);
+  return popUp;
 }
 
 function callEvery20Seconds(ctx, q) {
