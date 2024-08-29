@@ -1,3 +1,5 @@
+import { LiveSocket } from "phoenix_live_view";
+
 export default function setupQuill(ctx) {
   let popUp;
   const element = ctx.el;
@@ -26,7 +28,7 @@ export default function setupQuill(ctx) {
       } else {
         removePopup(popUp);
         const text = quill.getText(range.index, range.length);
-        popUp = drawPopUp(window.mouseX, window.mouseY, text);
+        popUp = drawPopUp(ctx, window.mouseX, window.mouseY, text);
       }
     } else {
       // removePopup(popUp);
@@ -45,12 +47,12 @@ function removePopup(popup) {
   }
 }
 
-function drawPopUp(x, y, text) {
+function drawPopUp(ctx, x, y, text) {
   // Create a new div element
   const popUp = document.createElement("div");
 
   // Set the text content of the div
-  popUp.textContent = "Create panel";
+  popUp.innerHTML = `Create panel`;
 
   // Apply some basic styles to the div
   popUp.style.position = "absolute"; // Position the div relative to the page
@@ -64,7 +66,7 @@ function drawPopUp(x, y, text) {
 
   // Make the div clickable
   popUp.addEventListener("click", function () {
-    alert("You clicked the popup!");
+    ctx.pushEvent("create-panel", { selection: text });
     removePopup(popUp);
   });
 
