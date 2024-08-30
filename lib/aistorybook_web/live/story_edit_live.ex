@@ -36,8 +36,8 @@ defmodule AistorybookWeb.StoryEditLive do
   end
 
   def handle_event("store-text", contents, socket) do
-    Access.update_notes(socket.assigns.project, contents)
-    {:noreply, socket |> put_flash(:info, "Saved")}
+    project = Access.update_notes(socket.assigns.project, contents)
+    {:noreply, assign(socket, project: project) |> put_flash(:info, "Saved")}
   end
 
   def handle_event("create-panel", %{"selection" => selection}, socket) do

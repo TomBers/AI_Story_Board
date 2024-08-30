@@ -9,6 +9,7 @@ defmodule Aistorybook.Project.Access do
   def update_notes(project, notes) do
     project
     |> Ash.Changeset.for_update(:update_notes, %{notes: Jason.encode!(notes)})
+    |> Ash.Changeset.load(chapters: [:pages])
     |> Ash.update!()
   end
 

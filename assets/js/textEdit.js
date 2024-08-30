@@ -6,6 +6,21 @@ export default function setupQuill(ctx) {
   const quill = new Quill(element, {
     theme: "snow",
     placeholder: "Compose an epic...",
+    modules: {
+      toolbar: [
+        // Toolbar options: groups of formatting buttons
+        [{ header: [1, 2, 3, false] }], // Header sizes
+        [{ font: [] }], // Font family
+        [{ list: "ordered" }, { list: "bullet" }], // Lists: ordered and unordered
+        ["bold", "italic", "underline", "strike"], // Text formatting options
+        [{ color: [] }, { background: [] }], // Text color and background color
+        [{ script: "sub" }, { script: "super" }], // Subscript / superscript
+        [{ align: [] }], // Text alignment
+        ["blockquote", "code-block"], // Blockquote and code block
+        ["link"], // Media: link, image, video
+        ["clean"], // Remove formatting
+      ],
+    },
   });
 
   content = JSON.parse(element.dataset.initialContent);
