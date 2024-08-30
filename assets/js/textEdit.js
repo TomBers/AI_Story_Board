@@ -14,7 +14,7 @@ export default function setupQuill(ctx) {
     quill.setContents(content.ops);
   }
 
-  callEvery20Seconds(ctx, quill);
+  // callEvery20Seconds(ctx, quill);
 
   // quill.on("text-change", (delta, oldDelta, source) => {
   //   ctx.pushEvent("store-text", quill.getContents());
@@ -67,6 +67,7 @@ function drawPopUp(ctx, x, y, text) {
   // Make the div clickable
   popUp.addEventListener("click", function () {
     ctx.pushEvent("create-panel", { selection: text });
+    openDrawer();
     removePopup(popUp);
   });
 
@@ -79,6 +80,20 @@ function callEvery20Seconds(ctx, q) {
   ctx.pushEvent("store-text", q.getContents());
   // Call this function again after 20 seconds (20000), passing the same parameter
   setTimeout(() => callEvery20Seconds(ctx, q), 60000);
+}
+
+function openDrawer() {
+  const drawer = document.getElementById("drawerForm");
+
+  // Ensure the initial state is applied
+  drawer.classList.remove("translate-x-0");
+  drawer.classList.add("translate-x-full");
+
+  // Use a slight delay to trigger the transition
+  setTimeout(() => {
+    drawer.classList.remove("translate-x-full");
+    drawer.classList.add("translate-x-0");
+  }, 100); // 10ms delay to ensure state is applied before transition
 }
 
 // Start the loop with a parameter

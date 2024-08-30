@@ -12,6 +12,10 @@
     font-size: 1.4em;
 }
 
+#drawerForm {
+    width: 320px; /* Width of the drawer */
+}
+
 .ql-toolbar {
     position: fixed;
     top: 0;

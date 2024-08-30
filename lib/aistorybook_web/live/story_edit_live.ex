@@ -58,7 +58,6 @@ defmodule AistorybookWeb.StoryEditLive do
     AshPhoenix.Form.submit(socket.assigns.form,
       params: params
     )
-    |> IO.inspect()
 
     {:noreply, socket |> put_flash(:info, "Panel Created")}
   end
