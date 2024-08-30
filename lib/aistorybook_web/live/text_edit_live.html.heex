@@ -31,6 +31,13 @@
         <.input type="number" label="Font Size" field={@form[:font_size]} />
         <.input type="color" label="Text Col" field={@form[:text_col]} />
         <.input type="color" label="Background Col" field={@form[:background_col]} />
+        <.input
+          type="range"
+          label="Text Width"
+          min="0"
+          max={@panel.width}
+          field={@form[:text_width]}
+        />
         <.input type="range" label="X Pox" min="0" max={@panel.width} field={@form[:x]} />
         <.input type="range" label="Y Pox" min="0" max={@panel.height} field={@form[:y]} />
         <.button>Save</.button>

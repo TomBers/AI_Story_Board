@@ -29,6 +29,7 @@ defmodule AistorybookWeb.TextEditLive do
       font_size: params["font_size"] |> String.to_integer(),
       text_col: params["text_col"],
       background_col: params["background_col"],
+      text_width: params["text_width"],
       x: params["x"] |> String.to_integer(),
       y: params["y"] |> String.to_integer()
     }

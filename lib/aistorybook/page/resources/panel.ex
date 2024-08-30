@@ -80,6 +80,12 @@ defmodule Aistorybook.Page.Resources.Panel do
       public? true
     end
 
+    attribute :text_width, :integer do
+      allow_nil? false
+      default 150
+      public? true
+    end
+
     attribute :x, :integer do
       allow_nil? false
       default 150
