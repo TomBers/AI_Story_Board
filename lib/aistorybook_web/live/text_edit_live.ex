@@ -56,7 +56,7 @@ defmodule AistorybookWeb.TextEditLive do
 
   def get_panel_img(panel) do
     panel.images
-    |> Enum.find(%{url: "/images/placeholder.jpg"}, &(&1.id == panel.image_id))
+    |> Enum.find(%{url: "/images/placeholder.png"}, &(&1.id == panel.image_id))
     |> then(& &1.url)
   end
 

@@ -30,3 +30,10 @@
     margin: 10px; /* Optional: adds a little spacing from the edges */
     z-index: 1000;
 }
+
+@media print {
+    body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}

@@ -5,7 +5,7 @@ defmodule AistorybookWeb.Comps.LayoutUtil do
       2 -> two_col_layout(layout)
       4 -> "grid grid-cols-2 gap-4"
       6 -> "grid grid-cols-3 gap-4"
-      _ -> "grid grid-cols-1"
+      _ -> "grid grid-cols-2 gap-4"
     end
   end
 

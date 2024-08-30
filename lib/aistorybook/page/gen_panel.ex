@@ -39,7 +39,7 @@ defmodule Aistorybook.Page.GenPanel do
   def make_placeholder_image(panel) do
     Aistorybook.Image.Resources.Image
     |> Ash.Changeset.for_create(:create, %{
-      url: "/images/placeholder.jpg",
+      url: "/images/generating.jpg",
       panel_id: panel.id,
       meta: nil
     })

@@ -39,7 +39,7 @@ defmodule Project.Data do
       Aistorybook.Image.Resources.Image
       |> Ash.Changeset.for_create(:create, %{
         # url: "https://picsum.photos/seed/picsum/200/300",
-        url: "/images/placeholder.jpg",
+        url: "/images/generating.jpg",
         panel_id: panel.id
       })
       |> Ash.create!()
