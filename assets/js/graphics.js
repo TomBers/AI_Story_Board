@@ -21,38 +21,52 @@ export default function drawPanel({ text, canvasId, imgUrl, textConfig }) {
     const font = `${tc["font_size"]}px ${tc["font"]}`;
     ctx.font = font;
 
-    measure = ctx.measureText(text);
+    // measure = ctx.measureText(text);
 
-    const padding = 15;
-    const width = tc["text_width"]; //measure.width + padding;
+    const width = tc["text_width"];
     const height = getTextHeight({ ctx, text, font });
-    console.log(height);
-    // measure.actualBoundingBoxAscent +
-    // measure.actualBoundingBoxDescent +
-    // padding;
 
     const x = tc["x"];
-    // const y = canvas.height / 2; // Center vertically
     const y = tc["y"];
 
-    ctx.beginPath();
-    ctx.rect(x, y, width, height);
-    ctx.closePath();
-    ctx.fillStyle = tc["background_col"];
-    ctx.fill();
-
     // Set text properties
-    ctx.fillStyle = tc["text_col"];
 
+    res = drawText(ctx, text, {
+      x: x,
+      y: y,
+      width: width,
+      height: height,
+      font: tc["font"],
+      fontSize: tc["font_size"],
+    });
+
+    drawBackground(
+      ctx,
+      x,
+      y,
+      width,
+      res.height,
+      tc["background_col"],
+      Math.max(5, height),
+    );
+
+    ctx.font = font;
+    ctx.fillStyle = tc["text_col"];
     drawText(ctx, text, {
       x: x,
       y: y,
       width: width,
       height: height,
+      font: tc["font"],
       fontSize: tc["font_size"],
     });
-
-    // Position and draw the text over the image
-    // ctx.fillText(text, x, y);
   };
+}
+
+function drawBackground(ctx, x, y, width, height, col, padding) {
+  ctx.beginPath();
+  ctx.rect(x, y - height / 2, width, height + padding);
+  ctx.closePath();
+  ctx.fillStyle = col;
+  ctx.fill();
 }
