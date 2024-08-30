@@ -1,30 +1,27 @@
-<div class="container mx-auto mt-8">
-  <div class="flex flex-col">
-    <!-- Left Column: Non-form content -->
-    <div class="w-full p-4">
-      <button
-        phx-hook="SaveText"
-        id="saveTextBtn"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Save
-      </button>
+<div>
+  <div class="container mx-auto mt-8" onmousemove="window.coordinate(event)">
+    <button
+      phx-hook="SaveText"
+      id="saveTextBtn"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Save
+    </button>
 
-      <div phx-hook="LoadTextEditor" data-initial-content={@project.notes} id="textEditor"></div>
-    </div>
-    <!-- Right Column: Form -->
-    <div class="w-full p-4">
-      <.simple_form for={@form} phx-submit="create_new_panel" id="create_panel_form">
-        <.input
-          type="select"
-          options={panel_options(@project)}
-          label="Panel to Add to"
-          field={@form[:page_id]}
-        />
-        <.input type="text" label="Panel text" field={@form[:text]} />
-        <.input type="textarea" label="Image Prompt" field={@form[:image_prompt]} />
-        <.button>Save</.button>
-      </.simple_form>
-    </div>
+    <div phx-hook="LoadTextEditor" data-initial-content={@project.notes} id="textEditor"></div>
+  </div>
+  <!-- Right Column: Form -->
+  <div class="w-full p-4">
+    <.simple_form for={@form} phx-submit="create_new_panel" id="create_panel_form">
+      <.input
+        type="select"
+        options={panel_options(@project)}
+        label="Panel to Add to"
+        field={@form[:page_id]}
+      />
+      <.input type="text" label="Panel text" field={@form[:text]} />
+      <.input type="textarea" label="Image Prompt" field={@form[:image_prompt]} />
+      <.button>Save</.button>
+    </.simple_form>
   </div>
 </div>

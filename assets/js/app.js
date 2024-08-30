@@ -46,6 +46,10 @@ Hooks.LoadTextEditor = {
     quill = setupQuill(this);
     window.quill = quill;
   },
+  updated() {
+    quill = setupQuill(this);
+    window.quill = quill;
+  },
 };
 
 Hooks.SaveText = {
@@ -58,7 +62,7 @@ Hooks.SaveText = {
 };
 
 function coordinate(event) {
-  const rect = event.currentTarget.getBoundingClientRect();
+  // const rect = event.currentTarget.getBoundingClientRect();
 
   // Calculate mouse position relative to the entire document
   window.mouseX = event.clientX + window.scrollX;
@@ -72,8 +76,6 @@ let liveSocket = new LiveSocket("/live", Socket, {
   longPollFallbackMs: 2500,
   params: { _csrf_token: csrfToken },
 });
-
-console.log(liveSocket);
 
 // Show progress bar on live navigation and form submits
 topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" });
