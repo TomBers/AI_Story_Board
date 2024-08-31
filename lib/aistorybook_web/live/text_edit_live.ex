@@ -54,6 +54,12 @@ defmodule AistorybookWeb.TextEditLive do
      assign(socket, panel: panel, form: form, txt: panel.text) |> put_flash(:info, "Saved")}
   end
 
+  def handle_event("navToBoard", _unsigned_params, socket) do
+    {:noreply,
+     socket
+     |> push_navigate(to: "/board/#{socket.assigns.board_name}")}
+  end
+
   def get_panel_img(panel) do
     panel.images
     |> Enum.find(%{url: "/images/placeholder.png"}, &(&1.id == panel.image_id))
