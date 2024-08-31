@@ -6,3 +6,38 @@
 .constrain-max-width {
     max-width: 100%;
 }
+
+#textEditor {
+    min-height: 400px;
+    font-size: 1.4em;
+}
+
+#drawerForm {
+    width: 320px; /* Width of the drawer */
+}
+
+.ql-toolbar {
+    position: fixed;
+    top: 0;
+    background-color: #fff !important;
+    z-index: 1000;
+}
+
+#storyEditMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 10px; /* Optional: adds a little spacing from the edges */
+    z-index: 1000;
+}
+
+#storyEditBoardBtn {
+    display: block;
+}
+
+@media print {
+    body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}

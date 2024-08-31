@@ -29,6 +29,7 @@ defmodule AistorybookWeb.TextEditLive do
       font_size: params["font_size"] |> String.to_integer(),
       text_col: params["text_col"],
       background_col: params["background_col"],
+      text_width: params["text_width"],
       x: params["x"] |> String.to_integer(),
       y: params["y"] |> String.to_integer()
     }
@@ -55,7 +56,7 @@ defmodule AistorybookWeb.TextEditLive do
 
   def get_panel_img(panel) do
     panel.images
-    |> Enum.find(&(&1.id == panel.image_id))
+    |> Enum.find(%{url: "/images/placeholder.png"}, &(&1.id == panel.image_id))
     |> then(& &1.url)
   end
 

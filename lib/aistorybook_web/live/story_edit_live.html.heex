@@ -1,0 +1,76 @@
+<div>
+  <.flash_group flash={@flash} />
+  <div class="container mx-auto mt-8" onmousemove="window.coordinate(event)">
+    <div id="storyEditMenu">
+      <button id="storyEditBoardBtn" phx-click="navToBoard">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="size-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+          />
+        </svg>
+      </button>
+      <button
+        phx-hook="SaveText"
+        id="saveTextBtn"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Save
+      </button>
+    </div>
+
+    <div phx-hook="LoadTextEditor" data-initial-content={@project.notes} id="textEditor"></div>
+  </div>
+  <!-- Right Column: Drawer Form -->
+  <div
+    id="drawerForm"
+    class="fixed right-0 top-0 w-80 h-full bg-white shadow-lg transform translate-x-full transition-transform duration-300"
+  >
+    <div class="p-4">
+      <button onclick="closeDrawer()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="size-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+          />
+        </svg>
+      </button>
+
+      <.simple_form for={@form} phx-submit="create_new_panel" id="create_panel_form">
+        <.input
+          type="select"
+          options={panel_options(@project)}
+          label="Panel to Add to"
+          field={@form[:page_id]}
+        />
+        <.input type="textarea" label="Panel text" field={@form[:text]} />
+        <.input type="textarea" label="Image Prompt" field={@form[:image_prompt]} />
+        <.button onclick="closeDrawer()">Save</.button>
+      </.simple_form>
+    </div>
+  </div>
+</div>
+
+<script>
+  function closeDrawer() {
+    const drawer = document.getElementById("drawerForm");
+    drawer.classList.remove("translate-x-0");
+    drawer.classList.add("translate-x-full");
+  }
+</script>

@@ -1,6 +1,6 @@
 <div class="w-full border rounded p-4 mb-4">
   <div class="flex justify-between mb-2">
-    <h3 class="font-semibold">Page <%= @indx + 1 %></h3>
+    <h3 class="font-semibold">Page <%= @indx %></h3>
     <a href={"/page/#{@page.id}/#{@project_name}"}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -62,13 +62,13 @@
       id={"create_panel_form_#{@page.id}"}
     >
       <.input
-        type="text"
+        type="textarea"
         label="Panel text"
         field={@new_panel_form[:text]}
         id={"create_panel_text_#{@page.id}"}
       />
       <.input
-        type="text"
+        type="textarea"
         label="Image Prompt"
         field={@new_panel_form[:image_prompt]}
         id={"create_panel_image_prompt_#{@page.id}"}

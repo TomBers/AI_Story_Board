@@ -23,6 +23,7 @@ import { LiveSocket } from "phoenix_live_view";
 import topbar from "../vendor/topbar";
 
 import drawPanel from "./graphics";
+import setupQuill from "./textEdit";
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
@@ -39,6 +40,36 @@ Hooks.PanelLoader = {
     drawPanel(this.el.dataset);
   },
 };
+
+Hooks.LoadTextEditor = {
+  mounted() {
+    quill = setupQuill(this);
+    window.quill = quill;
+  },
+  updated() {
+    quill = setupQuill(this);
+    window.quill = quill;
+  },
+};
+
+Hooks.SaveText = {
+  mounted() {
+    const ctx = this;
+    this.el.addEventListener("click", (e) => {
+      ctx.pushEvent("store-text", window.quill.getContents());
+    });
+  },
+};
+
+function coordinate(event) {
+  // const rect = event.currentTarget.getBoundingClientRect();
+
+  // Calculate mouse position relative to the entire document
+  window.mouseX = event.clientX + window.scrollX;
+  window.mouseY = event.clientY + window.scrollY;
+}
+
+window.coordinate = coordinate;
 
 let liveSocket = new LiveSocket("/live", Socket, {
   hooks: Hooks,

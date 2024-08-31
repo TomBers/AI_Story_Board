@@ -18,7 +18,7 @@ defmodule Aistorybook.Page.Resources.Panel do
     end
 
     update :update_text do
-      accept [:text, :font, :font_size, :text_col, :background_col, :x, :y]
+      accept [:text, :font, :font_size, :text_col, :background_col, :text_width, :x, :y]
     end
 
     update :set_img_id do
@@ -77,6 +77,12 @@ defmodule Aistorybook.Page.Resources.Panel do
     attribute :background_col, :string do
       allow_nil? false
       default "#000000"
+      public? true
+    end
+
+    attribute :text_width, :integer do
+      allow_nil? false
+      default 150
       public? true
     end
 

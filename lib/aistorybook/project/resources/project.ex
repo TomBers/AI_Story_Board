@@ -1,5 +1,7 @@
 defmodule Aistorybook.Project.Resources.Project do
-  use Ash.Resource, data_layer: AshPostgres.DataLayer, domain: Aistorybook.Project.Domain
+  use Ash.Resource,
+    data_layer: AshPostgres.DataLayer,
+    domain: Aistorybook.Project.Domain
 
   postgres do
     table "projects"
@@ -16,6 +18,10 @@ defmodule Aistorybook.Project.Resources.Project do
     update :update do
       accept [:name, :style]
     end
+
+    update :update_notes do
+      accept [:notes]
+    end
   end
 
   attributes do
@@ -27,6 +33,11 @@ defmodule Aistorybook.Project.Resources.Project do
     end
 
     attribute :style, :string do
+      allow_nil? true
+      public? true
+    end
+
+    attribute :notes, :string do
       allow_nil? true
       public? true
     end

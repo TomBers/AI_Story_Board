@@ -43,6 +43,6 @@ defmodule Aistorybook.Page.Access do
   end
 
   def get_text_config(mp) do
-    Map.take(mp, [:font, :font_size, :text_col, :background_col, :x, :y])
+    Map.take(mp, [:font, :font_size, :text_col, :background_col, :text_width, :x, :y])
   end
 end
