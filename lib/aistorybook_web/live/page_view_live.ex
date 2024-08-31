@@ -17,4 +17,10 @@ defmodule AistorybookWeb.PageViewLive do
 
     {:noreply, assign(socket, row_or_col: new_layout)}
   end
+
+  def handle_event("navToBoard", _unsigned_params, socket) do
+    {:noreply,
+     socket
+     |> push_navigate(to: "/board/#{socket.assigns.project_name}")}
+  end
 end
