@@ -14,7 +14,8 @@ defmodule AistorybookWeb.Comps.PageComp do
        indx: assigns.indx,
        new_panel_form: new_panel_form,
        layout: :row,
-       project_name: assigns.project_name
+       project_name: assigns.project_name,
+       chapter: assigns.chapter
      )}
   end
 

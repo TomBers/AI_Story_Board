@@ -23,7 +23,7 @@ defmodule AistorybookWeb.Router do
     live "/board/:name", BoardLive
     live "/story/:project_name", StoryEditLive
     live "/page/:page_id/:project_name", PageViewLive
-    live "/edit/:board_name/:panel_id", TextEditLive
+    live "/edit/:board_name/:panel_id/:chapter_id", TextEditLive
   end
 
   scope "/admin" do
