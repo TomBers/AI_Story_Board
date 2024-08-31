@@ -35,6 +35,10 @@
     display: block;
 }
 
+svg:hover {
+    color: blueviolet;
+}
+
 @media print {
     body {
         -webkit-print-color-adjust: exact !important;

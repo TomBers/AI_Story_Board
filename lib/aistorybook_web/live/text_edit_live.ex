@@ -3,7 +3,11 @@ defmodule AistorybookWeb.TextEditLive do
   alias Aistorybook.Page.Access
   import AistorybookWeb.CoreComponents
 
-  def mount(%{"board_name" => board_name, "panel_id" => panel_id}, _p, socket) do
+  def mount(
+        %{"board_name" => board_name, "panel_id" => panel_id, "chapter_id" => chapter_id},
+        _p,
+        socket
+      ) do
     panel = Access.get_panel_by_id(panel_id)
 
     form =
@@ -19,7 +23,8 @@ defmodule AistorybookWeb.TextEditLive do
        form: form,
        text_config: text_config,
        txt: panel.text,
-       board_name: board_name
+       board_name: board_name,
+       chapter_id: chapter_id
      )}
   end
 
@@ -52,6 +57,14 @@ defmodule AistorybookWeb.TextEditLive do
 
     {:noreply,
      assign(socket, panel: panel, form: form, txt: panel.text) |> put_flash(:info, "Saved")}
+  end
+
+  def handle_event("navToBoard", _unsigned_params, socket) do
+    {:noreply,
+     socket
+     |> push_navigate(
+       to: "/board/#{socket.assigns.board_name}?chapter=#{socket.assigns.chapter_id}"
+     )}
   end
 
   def get_panel_img(panel) do

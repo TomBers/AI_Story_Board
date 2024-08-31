@@ -58,7 +58,7 @@ defmodule Aistorybook.Page.Resources.Panel do
 
     attribute :font, :string do
       allow_nil? false
-      default "Ariel"
+      default "Courier New"
       public? true
     end
 

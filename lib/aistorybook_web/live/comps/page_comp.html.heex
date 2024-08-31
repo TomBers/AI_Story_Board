@@ -1,7 +1,7 @@
 <div class="w-full border rounded p-4 mb-4">
   <div class="flex justify-between mb-2">
     <h3 class="font-semibold">Page <%= @indx %></h3>
-    <a href={"/page/#{@page.id}/#{@project_name}"}>
+    <button phx-click="navToPreview" phx-target={@myself}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -16,7 +16,7 @@
           d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
         />
       </svg>
-    </a>
+    </button>
     <button phx-click="toggle-output" id={"page_display_toggle_#{@page.id}"} phx-target={@myself}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -40,6 +40,7 @@
         module={AistorybookWeb.Comps.PanelComp}
         id={panel.id}
         panel={panel}
+        chapter={@chapter}
         project_name={@project_name}
       />
     <% end %>

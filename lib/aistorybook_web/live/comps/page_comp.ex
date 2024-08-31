@@ -14,7 +14,8 @@ defmodule AistorybookWeb.Comps.PageComp do
        indx: assigns.indx,
        new_panel_form: new_panel_form,
        layout: :row,
-       project_name: assigns.project_name
+       project_name: assigns.project_name,
+       chapter: assigns.chapter
      )}
   end
 
@@ -49,5 +50,11 @@ defmodule AistorybookWeb.Comps.PageComp do
      assign(socket,
        layout: layout
      )}
+  end
+
+  def handle_event("navToPreview", _unsigned_params, socket) do
+    {:noreply,
+     socket
+     |> push_navigate(to: "/page/#{socket.assigns.page.id}/#{socket.assigns.project_name}")}
   end
 end

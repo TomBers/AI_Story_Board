@@ -15,6 +15,7 @@ defmodule AistorybookWeb.Comps.PanelComp do
     {:ok,
      assign(socket,
        panel: assigns.panel,
+       chapter: assigns.chapter,
        form: form,
        form_div_id: form_div_id,
        project_name: assigns.project_name
@@ -42,5 +43,14 @@ defmodule AistorybookWeb.Comps.PanelComp do
   def handle_event("previous_image", _params, socket) do
     updated_panel = Aistorybook.Page.Access.cycle_image(socket.assigns.panel, :previous)
     {:noreply, assign(socket, panel: updated_panel)}
+  end
+
+  def handle_event("navToTextEdit", _p, socket) do
+    {:noreply,
+     socket
+     |> push_navigate(
+       to:
+         "/edit/#{socket.assigns.project_name}/#{socket.assigns.panel.id}/#{socket.assigns.chapter.name}"
+     )}
   end
 end
