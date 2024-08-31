@@ -27,7 +27,8 @@
       </button>
     </div>
 
-    <div phx-hook="LoadTextEditor" data-initial-content={@project.notes} id="textEditor"></div>
+    <div phx-hook="LoadTextEditor" data-initial-content={@project.notes || "{}"} id="textEditor">
+    </div>
   </div>
   <!-- Right Column: Drawer Form -->
   <div

@@ -24,27 +24,26 @@ defmodule Project.Data do
       })
       |> Ash.create!()
 
-    panel =
-      Aistorybook.Page.Resources.Panel
-      |> Ash.Changeset.for_create(:create, %{
-        text: "This is the first label",
-        image_prompt: "Create an image of a cactus",
-        width: 512,
-        height: 512,
-        page_id: page.id
-      })
-      |> Ash.create!()
+    Aistorybook.Page.Resources.Panel
+    |> Ash.Changeset.for_create(:create, %{
+      text: "This is the first label",
+      image_prompt: "Create an image of a ...",
+      width: 512,
+      height: 512,
+      page_id: page.id
+    })
+    |> Ash.create!()
 
-    image =
-      Aistorybook.Image.Resources.Image
-      |> Ash.Changeset.for_create(:create, %{
-        # url: "https://picsum.photos/seed/picsum/200/300",
-        url: "/images/generating.jpg",
-        panel_id: panel.id
-      })
-      |> Ash.create!()
+    # image =
+    #   Aistorybook.Image.Resources.Image
+    #   |> Ash.Changeset.for_create(:create, %{
+    #     # url: "https://picsum.photos/seed/picsum/200/300",
+    #     url: "/images/generating.jpg",
+    #     panel_id: panel.id
+    #   })
+    #   |> Ash.create!()
 
-    Aistorybook.Page.Access.set_panel_image(panel, image)
+    # Aistorybook.Page.Access.set_panel_image(panel, image)
 
     # List all
     # Ash.read!(Aistorybook.Project.Resources.Project)
