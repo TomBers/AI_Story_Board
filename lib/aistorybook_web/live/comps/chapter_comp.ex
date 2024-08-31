@@ -30,4 +30,12 @@ defmodule AistorybookWeb.Comps.ChapterComp do
 
     {:noreply, assign(socket, chapter: chapter, form: form)}
   end
+
+  def handle_event("navToChapter", _p, socket) do
+    {:noreply,
+     socket
+     |> push_navigate(
+       to: "/board/#{socket.assigns.project_name}?chapter=#{socket.assigns.chapter.name}"
+     )}
+  end
 end

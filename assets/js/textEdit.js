@@ -72,8 +72,10 @@ function drawPopUp(ctx, x, y, text) {
   // Apply some basic styles to the div
   popUp.style.position = "absolute"; // Position the div relative to the page
   popUp.style.left = x + "px"; // Set the left position
-  popUp.style.top = y + "px"; // Set the top position
+  popUp.style.top = y - 60 + "px"; // Set the top position
   popUp.style.padding = "10px"; // Add some padding
+  popUp.style.color = "#3b82f6";
+  popUp.style["text-decoration"] = "underline";
   popUp.style.backgroundColor = "#f9f9f9"; // Set a background color
   popUp.style.border = "1px solid #ccc"; // Add a border
   popUp.style.cursor = "pointer"; // Make it look clickable

@@ -23,16 +23,9 @@ defmodule AistorybookWeb.StoryEditLive do
   def panel_options(project) do
     project.chapters
     |> Enum.flat_map(fn chapter ->
-      get_pages(chapter.pages)
-      |> Enum.map(fn {page, indx} -> {"#{chapter.name}_Page_#{indx}", page.id} end)
+      Aistorybook.Page.Utils.order_pages_with_index(chapter.pages)
+      |> Enum.map(fn {page, indx} -> {"#{chapter.name} Page #{indx}", page.id} end)
     end)
-  end
-
-  def get_pages(pages) do
-    # TODO - put this function somewhere
-    pages
-    |> Enum.sort(&DateTime.before?(&1.created_at, &2.created_at))
-    |> then(&Enum.with_index(&1))
   end
 
   def handle_event("store-text", contents, socket) do
@@ -60,5 +53,9 @@ defmodule AistorybookWeb.StoryEditLive do
     )
 
     {:noreply, socket |> put_flash(:info, "Panel Created")}
+  end
+
+  def handle_event("navToBoard", _p, socket) do
+    {:noreply, socket |> push_navigate(to: "/board/#{socket.assigns.project.name}")}
   end
 end

@@ -61,6 +61,10 @@ defmodule AistorybookWeb.BoardLive do
     {:noreply, assign(socket, project: updated_project, new_chapter_form: new_chapter_form)}
   end
 
+  def handle_event("navToNotes", _p, socket) do
+    {:noreply, socket |> push_navigate(to: "/story/#{socket.assigns.project.name}")}
+  end
+
   def handle_info(%{page_id: updated_page_id}, socket) do
     chapter = Enum.find(socket.assigns.project.chapters, &(&1.id == socket.assigns.chapter.id))
 
