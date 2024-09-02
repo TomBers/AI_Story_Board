@@ -55,6 +55,9 @@ defmodule AistorybookWeb.Comps.PageComp do
   def handle_event("navToPreview", _unsigned_params, socket) do
     {:noreply,
      socket
-     |> push_navigate(to: "/page/#{socket.assigns.page.id}/#{socket.assigns.project_name}")}
+     |> push_navigate(
+       to:
+         "/page/#{socket.assigns.page.id}/#{socket.assigns.project_name}/#{socket.assigns.chapter.name}"
+     )}
   end
 end

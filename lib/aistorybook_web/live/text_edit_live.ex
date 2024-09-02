@@ -4,7 +4,7 @@ defmodule AistorybookWeb.TextEditLive do
   import AistorybookWeb.CoreComponents
 
   def mount(
-        %{"board_name" => board_name, "panel_id" => panel_id, "chapter_id" => chapter_id},
+        %{"board_name" => board_name, "panel_id" => panel_id, "chapter_name" => chapter_name},
         _p,
         socket
       ) do
@@ -24,7 +24,7 @@ defmodule AistorybookWeb.TextEditLive do
        text_config: text_config,
        txt: panel.text,
        board_name: board_name,
-       chapter_id: chapter_id
+       chapter_name: chapter_name
      )}
   end
 
@@ -63,7 +63,7 @@ defmodule AistorybookWeb.TextEditLive do
     {:noreply,
      socket
      |> push_navigate(
-       to: "/board/#{socket.assigns.board_name}?chapter=#{socket.assigns.chapter_id}"
+       to: "/board/#{socket.assigns.board_name}?chapter=#{socket.assigns.chapter_name}"
      )}
   end
 
