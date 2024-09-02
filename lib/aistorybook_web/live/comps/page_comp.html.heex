@@ -74,7 +74,12 @@
         field={@new_panel_form[:image_prompt]}
         id={"create_panel_image_prompt_#{@page.id}"}
       />
-      <.button phx-click={hide_modal("new_panel_#{@page.id}")}>Save</.button>
+      <.button
+        data-confirm="This will generate a new image"
+        phx-click={hide_modal("new_panel_#{@page.id}")}
+      >
+        Generate Panel
+      </.button>
     </.simple_form>
   </.modal>
 </div>
