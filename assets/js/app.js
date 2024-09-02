@@ -69,6 +69,19 @@ function coordinate(event) {
   window.mouseY = event.clientY + window.scrollY;
 }
 
+function closeDrawer() {
+  const drawer = document.getElementById("drawerForm");
+  drawer.classList.remove("translate-x-0");
+  drawer.classList.add("translate-x-full");
+
+  setTimeout(() => {
+    drawer.classList.remove("translate-x-0");
+    drawer.classList.add("translate-x-full");
+  }, 100);
+}
+
+window.closeDrawer = closeDrawer;
+
 window.coordinate = coordinate;
 
 let liveSocket = new LiveSocket("/live", Socket, {

@@ -36,7 +36,7 @@
     class="fixed right-0 top-0 w-80 h-full bg-white shadow-lg transform translate-x-full transition-transform duration-300"
   >
     <div class="p-4">
-      <button onclick="closeDrawer()">
+      <button onclick="window.closeDrawer()">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -62,16 +62,8 @@
         />
         <.input type="textarea" label="Panel text" field={@form[:text]} />
         <.input type="textarea" label="Image Prompt" field={@form[:image_prompt]} />
-        <.button onclick="closeDrawer()">Generate Panel</.button>
+        <.button onclick="window.closeDrawer()">Generate Panel</.button>
       </.simple_form>
     </div>
   </div>
 </div>
-
-<script>
-  function closeDrawer() {
-    const drawer = document.getElementById("drawerForm");
-    drawer.classList.remove("translate-x-0");
-    drawer.classList.add("translate-x-full");
-  }
-</script>
