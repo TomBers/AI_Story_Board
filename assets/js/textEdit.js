@@ -90,6 +90,8 @@ function drawPopUp(ctx, x, y, text) {
 
   // Add the div to the body
   document.body.appendChild(popUp);
+  // Hide Popup after 3 secs
+  setTimeout(() => removePopup(popUp), 3000);
   return popUp;
 }
 
