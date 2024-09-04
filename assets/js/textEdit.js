@@ -1,5 +1,3 @@
-import { LiveSocket } from "phoenix_live_view";
-
 export default function setupQuill(ctx) {
   let popUp;
   const element = ctx.el;
